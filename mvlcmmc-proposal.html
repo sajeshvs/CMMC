@@ -1,0 +1,1191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MVL Group - CMMC & NIST SP 800-171 Readiness Engagement</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: white;
+            box-shadow: 0 0 40px rgba(0,0,0,0.3);
+        }
+
+        /* Header Section */
+        .header {
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            color: white;
+            padding: 60px 40px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+            animation: pulse 15s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+
+        .header h1 {
+            font-size: 3em;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+            position: relative;
+            z-index: 1;
+        }
+
+        .header .subtitle {
+            font-size: 1.4em;
+            opacity: 0.95;
+            position: relative;
+            z-index: 1;
+        }
+
+        .header .client-info {
+            margin-top: 30px;
+            font-size: 1.2em;
+            font-weight: 600;
+            background: rgba(255,255,255,0.1);
+            display: inline-block;
+            padding: 15px 40px;
+            border-radius: 50px;
+            backdrop-filter: blur(10px);
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Current Status Section */
+        .status-banner {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            color: white;
+            padding: 40px;
+            text-align: center;
+        }
+
+        .status-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin-top: 30px;
+        }
+
+        .status-card {
+            background: rgba(255,255,255,0.2);
+            backdrop-filter: blur(10px);
+            padding: 30px;
+            border-radius: 15px;
+            border: 2px solid rgba(255,255,255,0.3);
+            transition: transform 0.3s ease;
+        }
+
+        .status-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .status-card h3 {
+            font-size: 1.8em;
+            margin-bottom: 10px;
+        }
+
+        .status-card .score {
+            font-size: 3em;
+            font-weight: bold;
+            margin: 20px 0;
+        }
+
+        /* Executive Summary */
+        .exec-summary {
+            padding: 60px 40px;
+            background: linear-gradient(to bottom, #f8f9fa, #ffffff);
+        }
+
+        .exec-summary h2 {
+            color: #1e3c72;
+            font-size: 2.5em;
+            margin-bottom: 30px;
+            border-bottom: 4px solid #667eea;
+            padding-bottom: 15px;
+        }
+
+        .exec-summary p {
+            font-size: 1.2em;
+            line-height: 1.8;
+            color: #555;
+        }
+
+        /* Journey Section */
+        .journey {
+            padding: 60px 40px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+
+        .journey h2 {
+            font-size: 2.5em;
+            margin-bottom: 40px;
+            text-align: center;
+        }
+
+        .journey-path {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .journey-step {
+            background: rgba(255,255,255,0.15);
+            backdrop-filter: blur(10px);
+            padding: 30px;
+            border-radius: 15px;
+            text-align: center;
+            flex: 1;
+            min-width: 200px;
+            border: 2px solid rgba(255,255,255,0.3);
+        }
+
+        .journey-arrow {
+            font-size: 2em;
+            opacity: 0.6;
+        }
+
+        .journey-step h3 {
+            font-size: 1.5em;
+            margin-bottom: 15px;
+        }
+
+        .journey-step .badge {
+            display: inline-block;
+            padding: 8px 20px;
+            background: rgba(255,255,255,0.3);
+            border-radius: 20px;
+            font-weight: bold;
+            margin-top: 15px;
+        }
+
+        /* Standards Section */
+        .standards {
+            padding: 60px 40px;
+            background: white;
+        }
+
+        .standards h2 {
+            color: #1e3c72;
+            font-size: 2.5em;
+            margin-bottom: 40px;
+            text-align: center;
+        }
+
+        .standards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .standard-card {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .standard-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.3);
+        }
+
+        .standard-card h3 {
+            font-size: 1.8em;
+            margin-bottom: 15px;
+            border-bottom: 2px solid rgba(255,255,255,0.3);
+            padding-bottom: 10px;
+        }
+
+        .standard-card ul {
+            list-style: none;
+            margin-top: 15px;
+        }
+
+        .standard-card li {
+            padding: 8px 0;
+            padding-left: 25px;
+            position: relative;
+        }
+
+        .standard-card li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: #4ade80;
+            font-weight: bold;
+        }
+
+        /* Key Areas Section */
+        .key-areas {
+            padding: 60px 40px;
+            background: linear-gradient(to bottom, #f8f9fa, #e9ecef);
+        }
+
+        .key-areas h2 {
+            color: #1e3c72;
+            font-size: 2.5em;
+            margin-bottom: 40px;
+            text-align: center;
+        }
+
+        .areas-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+        }
+
+        .area-card {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            border-left: 5px solid #667eea;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+        }
+
+        .area-card:hover {
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            transform: translateX(5px);
+        }
+
+        .area-card h3 {
+            color: #1e3c72;
+            font-size: 1.5em;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+        }
+
+        .area-card .icon {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            margin-right: 15px;
+            font-weight: bold;
+        }
+
+        .area-card ul {
+            list-style: none;
+        }
+
+        .area-card li {
+            padding: 8px 0;
+            padding-left: 20px;
+            position: relative;
+            color: #555;
+        }
+
+        .area-card li::before {
+            content: '▸';
+            position: absolute;
+            left: 0;
+            color: #667eea;
+        }
+
+        /* Deliverables Section */
+        .deliverables {
+            padding: 60px 40px;
+            background: white;
+        }
+
+        .deliverables h2 {
+            color: #1e3c72;
+            font-size: 2.5em;
+            margin-bottom: 40px;
+            text-align: center;
+        }
+
+        .deliverables-checklist {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 20px;
+        }
+
+        .deliverable-item {
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            padding: 20px;
+            border-radius: 10px;
+            border-left: 4px solid #4ade80;
+            display: flex;
+            align-items: flex-start;
+            transition: all 0.3s ease;
+        }
+
+        .deliverable-item:hover {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border-left-color: #4ade80;
+        }
+
+        .deliverable-item .check {
+            width: 30px;
+            height: 30px;
+            background: #4ade80;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            margin-right: 15px;
+            flex-shrink: 0;
+        }
+
+        .deliverable-item .number {
+            font-weight: bold;
+            margin-right: 10px;
+            color: #667eea;
+        }
+
+        .deliverable-item:hover .number {
+            color: white;
+        }
+
+        /* Architecture Section */
+        .architecture {
+            padding: 60px 40px;
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            color: white;
+        }
+
+        .architecture h2 {
+            font-size: 2.5em;
+            margin-bottom: 40px;
+            text-align: center;
+        }
+
+        .arch-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+        }
+
+        .arch-component {
+            background: rgba(255,255,255,0.1);
+            backdrop-filter: blur(10px);
+            padding: 30px;
+            border-radius: 15px;
+            border: 2px solid rgba(255,255,255,0.2);
+            text-align: center;
+        }
+
+        .arch-component h3 {
+            font-size: 1.6em;
+            margin-bottom: 20px;
+        }
+
+        .arch-component .component-icon {
+            width: 80px;
+            height: 80px;
+            background: rgba(255,255,255,0.2);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2em;
+            margin: 0 auto 20px;
+        }
+
+        /* Footer */
+        .footer {
+            background: #1a1a1a;
+            color: white;
+            padding: 40px;
+            text-align: center;
+        }
+
+        .footer h3 {
+            font-size: 2em;
+            margin-bottom: 20px;
+        }
+
+        .footer p {
+            font-size: 1.1em;
+            opacity: 0.8;
+        }
+
+        .footer .contact {
+            margin-top: 30px;
+            padding: 20px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 10px;
+            display: inline-block;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 2em;
+            }
+            
+            .header .subtitle {
+                font-size: 1.1em;
+            }
+            
+            .journey-path {
+                flex-direction: column;
+            }
+            
+            .journey-arrow {
+                transform: rotate(90deg);
+            }
+            
+            .deliverables-checklist,
+            .standards-grid,
+            .areas-grid,
+            .arch-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .fade-in {
+            animation: fadeInUp 0.6s ease-out;
+        }
+
+        /* Progress Bar */
+        .progress-section {
+            padding: 60px 40px;
+            background: linear-gradient(to bottom, #e9ecef, #f8f9fa);
+        }
+
+        .progress-section h2 {
+            color: #1e3c72;
+            font-size: 2.5em;
+            margin-bottom: 40px;
+            text-align: center;
+        }
+
+        .progress-bar-container {
+            background: white;
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+        }
+
+        .progress-item {
+            margin-bottom: 30px;
+        }
+
+        .progress-label {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+            font-weight: 600;
+            color: #333;
+        }
+
+        .progress-bar {
+            height: 30px;
+            background: #e9ecef;
+            border-radius: 15px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            padding-right: 15px;
+            color: white;
+            font-weight: bold;
+            transition: width 2s ease;
+        }
+
+        .highlight-box {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            color: white;
+            padding: 30px;
+            border-radius: 15px;
+            margin: 40px 0;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+
+        .highlight-box h3 {
+            font-size: 1.8em;
+            margin-bottom: 15px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <div class="header fade-in">
+            <h1>🛡️ CMMC & NIST SP 800-171</h1>
+            <div class="subtitle">Cybersecurity & Compliance Readiness Engagement</div>
+            <div class="client-info">MVL Group</div>
+        </div>
+
+        <!-- Current Status Banner -->
+        <div class="status-banner fade-in">
+            <h2 style="font-size: 2.5em; margin-bottom: 20px;">📊 Current Compliance Posture</h2>
+            <div class="status-grid">
+                <div class="status-card">
+                    <h3>NIST 800-171</h3>
+                    <div class="score">60/110</div>
+                    <p style="font-size: 1.1em;">Current Assessment Score</p>
+                </div>
+                <div class="status-card">
+                    <h3>CMMC Level</h3>
+                    <div class="score">Level 1</div>
+                    <p style="font-size: 1.1em;">Multiple Locations Achieved</p>
+                </div>
+                <div class="status-card">
+                    <h3>Assessment History</h3>
+                    <div class="score">✓</div>
+                    <p style="font-size: 1.1em;">Multiple Assessments Completed</p>
+                </div>
+                <div class="status-card">
+                    <h3>Tracking</h3>
+                    <div class="score">📋</div>
+                    <p style="font-size: 1.1em;">Active SPRS & Activity Tracker</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Executive Summary -->
+        <div class="exec-summary fade-in">
+            <h2>📄 Executive Summary</h2>
+            <p>
+                MVL Group will establish a comprehensive, governed, and auditable cybersecurity and compliance program 
+                aligned to <strong>CMMC v2 (Levels 1-3)</strong> and <strong>NIST SP 800-171 Rev.3</strong> for the 
+                protection of <strong>Controlled Unclassified Information (CUI)</strong>.
+            </p>
+            <div class="highlight-box" style="margin-top: 30px;">
+                <h3>🎯 Engagement Deliverables</h3>
+                <p style="font-size: 1.1em; line-height: 1.8;">
+                    Complete policy and standards suite • Enclave design • SSP/POA&M • Evidence repository • 
+                    Training programs • Compliance dashboards • Mock audit • DFARS reporting readiness • 
+                    C3PAO assessment preparation • Continuous improvement framework
+                </p>
+            </div>
+        </div>
+
+        <!-- Journey Path -->
+        <div class="journey fade-in">
+            <h2>🚀 Compliance Journey</h2>
+            <div class="journey-path">
+                <div class="journey-step">
+                    <h3>Current State</h3>
+                    <p>60/110 NIST Points</p>
+                    <p>CMMC L1 (Partial Sites)</p>
+                    <div class="badge">Starting Point</div>
+                </div>
+                <div class="journey-arrow">→</div>
+                <div class="journey-step">
+                    <h3>Phase 1</h3>
+                    <p>Complete L1 All Sites</p>
+                    <p>Documentation & Policies</p>
+                    <div class="badge">In Progress</div>
+                </div>
+                <div class="journey-arrow">→</div>
+                <div class="journey-step">
+                    <h3>Phase 2</h3>
+                    <p>CMMC Level 2</p>
+                    <p>110/110 NIST Points</p>
+                    <div class="badge">Target</div>
+                </div>
+                <div class="journey-arrow">→</div>
+                <div class="journey-step">
+                    <h3>Certification</h3>
+                    <p>C3PAO Assessment</p>
+                    <p>DFARS Compliance</p>
+                    <div class="badge">Goal</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Progress Tracking -->
+        <div class="progress-section fade-in">
+            <h2>📈 Implementation Progress</h2>
+            <div class="progress-bar-container">
+                <div class="progress-item">
+                    <div class="progress-label">
+                        <span>NIST SP 800-171 Rev.3 Controls</span>
+                        <span>60 / 110 Points (55%)</span>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: 55%;">55%</div>
+                    </div>
+                </div>
+                <div class="progress-item">
+                    <div class="progress-label">
+                        <span>CMMC Level 1 Site Coverage</span>
+                        <span>In Progress (Multiple Sites)</span>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: 70%;">70%</div>
+                    </div>
+                </div>
+                <div class="progress-item">
+                    <div class="progress-label">
+                        <span>Documentation & Policies</span>
+                        <span>Foundation Stage</span>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: 40%;">40%</div>
+                    </div>
+                </div>
+                <div class="progress-item">
+                    <div class="progress-label">
+                        <span>Target: CMMC Level 2 Readiness</span>
+                        <span>Future State</span>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: 35%;">35%</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Authoritative Standards -->
+        <div class="standards fade-in">
+            <h2>📚 Authoritative Standards & Frameworks</h2>
+            <div class="standards-grid">
+                <div class="standard-card">
+                    <h3>CMMC v2.0</h3>
+                    <ul>
+                        <li>Level 1: Foundation Practices</li>
+                        <li>Level 2: Advanced Protection (CUI)</li>
+                        <li>Level 3: Expert/Selective Controls</li>
+                        <li>C3PAO Assessment Readiness</li>
+                    </ul>
+                </div>
+                <div class="standard-card">
+                    <h3>NIST SP 800-171 Rev.3</h3>
+                    <ul>
+                        <li>110 Security Controls</li>
+                        <li>Rev.2 → Rev.3 Delta Closure</li>
+                        <li>CUI Protection Requirements</li>
+                        <li>SPRS Scoring & Reporting</li>
+                    </ul>
+                </div>
+                <div class="standard-card">
+                    <h3>DFARS Compliance</h3>
+                    <ul>
+                        <li>DFARS 252.204-7012 (Safeguarding)</li>
+                        <li>DFARS 252.204-7019 (Notification)</li>
+                        <li>DFARS 252.204-7020 (NIST Compliance)</li>
+                        <li>72-Hour Incident Reporting</li>
+                    </ul>
+                </div>
+                <div class="standard-card">
+                    <h3>Supporting Standards</h3>
+                    <ul>
+                        <li>NIST SP 800-53 (Reference Mapping)</li>
+                        <li>NIST SP 800-88 (Media Sanitization)</li>
+                        <li>FIPS 140-2/3 (Cryptography)</li>
+                        <li>FedRAMP Inheritance Models</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Key Domains -->
+        <div class="key-areas fade-in">
+            <h2>🎯 Key Implementation Domains</h2>
+            <div class="areas-grid">
+                <div class="area-card">
+                    <h3><span class="icon">1</span> Scope & Boundary</h3>
+                    <ul>
+                        <li>CMMC Level Target Statement</li>
+                        <li>CUI Flow & Data Classification</li>
+                        <li>Enclave Architecture Design</li>
+                        <li>Boundary Diagrams & Narratives</li>
+                        <li>Asset Inventory & Tagging</li>
+                    </ul>
+                </div>
+                <div class="area-card">
+                    <h3><span class="icon">2</span> Policy & Documentation</h3>
+                    <ul>
+                        <li>20+ Comprehensive Policies</li>
+                        <li>Standards & SOP Library</li>
+                        <li>Work Instructions & Runbooks</li>
+                        <li>Document Control Register</li>
+                        <li>Version Management & Approvals</li>
+                    </ul>
+                </div>
+                <div class="area-card">
+                    <h3><span class="icon">3</span> Identity & Access</h3>
+                    <ul>
+                        <li>Entra ID Segmentation</li>
+                        <li>Privileged Identity Management (PIM)</li>
+                        <li>Multi-Factor Authentication (MFA)</li>
+                        <li>Conditional Access Policies</li>
+                        <li>Passwordless Roadmap</li>
+                    </ul>
+                </div>
+                <div class="area-card">
+                    <h3><span class="icon">4</span> Device & Endpoint</h3>
+                    <ul>
+                        <li>Microsoft Intune Compliance</li>
+                        <li>BitLocker & FIPS Encryption</li>
+                        <li>Defender for Endpoint (EDR)</li>
+                        <li>Configuration Baselines</li>
+                        <li>Local Admin Removal</li>
+                    </ul>
+                </div>
+                <div class="area-card">
+                    <h3><span class="icon">5</span> Data Protection</h3>
+                    <ul>
+                        <li>M365 GCC High Environment</li>
+                        <li>Information Protection Labels</li>
+                        <li>Data Loss Prevention (DLP)</li>
+                        <li>CUI Marking & Handling</li>
+                        <li>Secure Sharing Controls</li>
+                    </ul>
+                </div>
+                <div class="area-card">
+                    <h3><span class="icon">6</span> Network Security</h3>
+                    <ul>
+                        <li>Zscaler ZIA/ZPA Integration</li>
+                        <li>Zero Trust Architecture</li>
+                        <li>Network Segmentation</li>
+                        <li>Secure Remote Access</li>
+                        <li>Traffic Inspection & Filtering</li>
+                    </ul>
+                </div>
+                <div class="area-card">
+                    <h3><span class="icon">7</span> Security Operations</h3>
+                    <ul>
+                        <li>Microsoft Defender XDR</li>
+                        <li>Sentinel SIEM Integration</li>
+                        <li>MITRE ATT&CK Mapping</li>
+                        <li>12+ Month Log Retention</li>
+                        <li>KQL Query Library</li>
+                    </ul>
+                </div>
+                <div class="area-card">
+                    <h3><span class="icon">8</span> Vulnerability Management</h3>
+                    <ul>
+                        <li>Threat & Vulnerability Management</li>
+                        <li>SLA-Based Patching</li>
+                        <li>Security Baselines</li>
+                        <li>Exception Workflow</li>
+                        <li>Continuous Scanning</li>
+                    </ul>
+                </div>
+                <div class="area-card">
+                    <h3><span class="icon">9</span> Incident Response</h3>
+                    <ul>
+                        <li>Full Lifecycle IR Playbook</li>
+                        <li>DFARS 72-Hour Reporting</li>
+                        <li>DIBNet Submission Procedures</li>
+                        <li>Evidence Preservation</li>
+                        <li>Forensics & Chain of Custody</li>
+                    </ul>
+                </div>
+                <div class="area-card">
+                    <h3><span class="icon">10</span> Risk & POA&M</h3>
+                    <ul>
+                        <li>Risk Register & Assessment</li>
+                        <li>Plan of Action & Milestones</li>
+                        <li>Severity-Based Timelines</li>
+                        <li>Compensating Controls</li>
+                        <li>Quarterly Risk Reviews</li>
+                    </ul>
+                </div>
+                <div class="area-card">
+                    <h3><span class="icon">11</span> Training & Awareness</h3>
+                    <ul>
+                        <li>Role-Based Training Plans</li>
+                        <li>CUI Handling Education</li>
+                        <li>Phishing Simulation</li>
+                        <li>Executive CMMC Briefings</li>
+                        <li>Onboarding & Annual Refresh</li>
+                    </ul>
+                </div>
+                <div class="area-card">
+                    <h3><span class="icon">12</span> Business Continuity</h3>
+                    <ul>
+                        <li>3-2-1 Backup Strategy</li>
+                        <li>Immutable Backups</li>
+                        <li>RTO/RPO Definition</li>
+                        <li>Quarterly Recovery Tests</li>
+                        <li>Evidence Documentation</li>
+                    </ul>
+                </div>
+                <div class="area-card">
+                    <h3><span class="icon">13</span> Third-Party Risk</h3>
+                    <ul>
+                        <li>Supplier Risk Assessment</li>
+                        <li>FedRAMP/SOC2 Validation</li>
+                        <li>Contractual Control Inheritance</li>
+                        <li>Annual Vendor Reviews</li>
+                        <li>Evidence Collection</li>
+                    </ul>
+                </div>
+                <div class="area-card">
+                    <h3><span class="icon">14</span> Physical & Media</h3>
+                    <ul>
+                        <li>Physical Access Controls</li>
+                        <li>Visitor Management</li>
+                        <li>Clean Desk Policy</li>
+                        <li>NIST 800-88 Media Disposal</li>
+                        <li>Sanitization Certificates</li>
+                    </ul>
+                </div>
+                <div class="area-card">
+                    <h3><span class="icon">15</span> Personnel Security</h3>
+                    <ul>
+                        <li>Background Verification</li>
+                        <li>Onboarding/Offboarding SLAs</li>
+                        <li>Access Recertification</li>
+                        <li>Separation of Duties</li>
+                        <li>Acceptable Use Policy</li>
+                    </ul>
+                </div>
+                <div class="area-card">
+                    <h3><span class="icon">16</span> System Documentation</h3>
+                    <ul>
+                        <li>System Security Plan (SSP)</li>
+                        <li>Network & Data Flow Diagrams</li>
+                        <li>Configuration Documentation</li>
+                        <li>Evidence Repository</li>
+                        <li>Master Control Index</li>
+                    </ul>
+                </div>
+                <div class="area-card">
+                    <h3><span class="icon">17</span> Cryptography & FIPS</h3>
+                    <ul>
+                        <li>TLS 1.2+/1.3 Enforcement</li>
+                        <li>FIPS 140-2/3 Validated Modules</li>
+                        <li>HSM Key Management</li>
+                        <li>Encryption at Rest & Transit</li>
+                        <li>Certificate Management</li>
+                    </ul>
+                </div>
+                <div class="area-card">
+                    <h3><span class="icon">18</span> Measurement & Reporting</h3>
+                    <ul>
+                        <li>Compliance Dashboards</li>
+                        <li>SPRS Score Tracking</li>
+                        <li>KPI & Metrics Library</li>
+                        <li>Quarterly Management Reviews</li>
+                        <li>Trend Analysis & Reporting</li>
+                    </ul>
+                </div>
+                <div class="area-card">
+                    <h3><span class="icon">19</span> Audit & Assessment</h3>
+                    <ul>
+                        <li>Mock C3PAO Assessment</li>
+                        <li>Evidence Review & Gap Analysis</li>
+                        <li>Staff Interview Preparation</li>
+                        <li>Process Walkthroughs</li>
+                        <li>Corrective Action Plan (CAP)</li>
+                    </ul>
+                </div>
+                <div class="area-card">
+                    <h3><span class="icon">20</span> Governance & Roles</h3>
+                    <ul>
+                        <li>RACI Matrix Definition</li>
+                        <li>Governance Charter</li>
+                        <li>Role Assignments (CISO/ISSO)</li>
+                        <li>Change Control Process</li>
+                        <li>Accountability Framework</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Architecture Components -->
+        <div class="architecture fade-in">
+            <h2>🏗️ CUI Enclave Architecture</h2>
+            <div class="arch-grid">
+                <div class="arch-component">
+                    <div class="component-icon">🔐</div>
+                    <h3>Identity Layer</h3>
+                    <p>Entra ID • PIM • MFA • Conditional Access • Privileged Workflows</p>
+                </div>
+                <div class="arch-component">
+                    <div class="component-icon">💻</div>
+                    <h3>Device Layer</h3>
+                    <p>Intune • BitLocker • Defender EDR • Compliance Policies • Baselines</p>
+                </div>
+                <div class="arch-component">
+                    <div class="component-icon">📁</div>
+                    <h3>Data Layer</h3>
+                    <p>M365 GCC High • SharePoint • OneDrive • Teams • DLP • Labels</p>
+                </div>
+                <div class="arch-component">
+                    <div class="component-icon">🌐</div>
+                    <h3>Network Layer</h3>
+                    <p>Zscaler ZIA/ZPA • Zero Trust • Segmentation • Secure Access</p>
+                </div>
+                <div class="arch-component">
+                    <div class="component-icon">🛡️</div>
+                    <h3>Security Stack</h3>
+                    <p>Defender XDR • Sentinel • Threat Intelligence • SIEM • SOC</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Deliverables Checklist -->
+        <div class="deliverables fade-in">
+            <h2>✅ Comprehensive Deliverables Checklist</h2>
+            <div class="deliverables-checklist">
+                <div class="deliverable-item">
+                    <div class="check">✓</div>
+                    <div><span class="number">1.</span> Standards Register + Rev.2→Rev.3 Delta Matrix</div>
+                </div>
+                <div class="deliverable-item">
+                    <div class="check">✓</div>
+                    <div><span class="number">2.</span> Target Level & Boundary Statement + Enclave Architecture</div>
+                </div>
+                <div class="deliverable-item">
+                    <div class="check">✓</div>
+                    <div><span class="number">3.</span> CUI Flow Diagrams & Data Classification Standard</div>
+                </div>
+                <div class="deliverable-item">
+                    <div class="check">✓</div>
+                    <div><span class="number">4.</span> Shared Responsibility Matrix + Supplier Evidence Pack</div>
+                </div>
+                <div class="deliverable-item">
+                    <div class="check">✓</div>
+                    <div><span class="number">5.</span> Complete Policy Suite (20+ Policies)</div>
+                </div>
+                <div class="deliverable-item">
+                    <div class="check">✓</div>
+                    <div><span class="number">6.</span> Security Standards Library (Crypto, DLP, Logging, etc.)</div>
+                </div>
+                <div class="deliverable-item">
+                    <div class="check">✓</div>
+                    <div><span class="number">7.</span> Standard Operating Procedures (SOP) Library</div>
+                </div>
+                <div class="deliverable-item">
+                    <div class="check">✓</div>
+                    <div><span class="number">8.</span> Document Control Register & Templates</div>
+                </div>
+                <div class="deliverable-item">
+                    <div class="check">✓</div>
+                    <div><span class="number">9.</span> Risk Register + POA&M Governance Framework</div>
+                </div>
+                <div class="deliverable-item">
+                    <div class="check">✓</div>
+                    <div><span class="number">10.</span> Compliance Metrics Catalog + KPI Dashboard</div>
+                </div>
+                <div class="deliverable-item">
+                    <div class="check">✓</div>
+                    <div><span class="number">11.</span> Identity & Device Security Baselines</div>
+                </div>
+                <div class="deliverable-item">
+                    <div class="check">✓</div>
+                    <div><span class="number">12.</span> Privileged Access Management (PAM) Framework</div>
+                </div>
+                <div class="deliverable-item">
+                    <div class="check">✓</div>
+                    <div><span class="number">13.</span> Logging Standard + 12-Month Retention Policy</div>
+                </div>
+                <div class="deliverable-item">
+                    <div class="check">✓</div>
+                    <div><span class="number">14.</span> KQL Query Library + MITRE ATT&CK Mapping</div>
+                </div>
+                <div class="deliverable-item">
+                    <div class="check">✓</div>
+                    <div><span class="number">15.</span> Vulnerability Management Standard + SLA Definitions</div>
+                </div>
+                <div class="deliverable-item">
+                    <div class="check">✓</div>
+                    <div><span class="number">16.</span> Configuration Management Baselines</div>
+                </div>
+                <div class="deliverable-item">
+                    <div class="check">✓</div>
+                    <div><span class="number">17.</span> Incident Response Policy + Full IR Playbook</div>
+                </div>
+                <div class="deliverable-item">
+                    <div class="check">✓</div>
+                    <div><span class="number">18.</span> DFARS 7012 Reporting Procedures + DIBNet Guide</div>
+                </div>
+                <div class="deliverable-item">
+                    <div class="check">✓</div>
+                    <div><span class="number">19.</span> Tabletop Exercise Reports + IR Testing Evidence</div>
+                </div>
+                <div class="deliverable-item">
+                    <div class="check">✓</div>
+                    <div><span class="number">20.</span> Training Materials + Role-Based Curriculum</div>
+                </div>
+                <div class="deliverable-item">
+                    <div class="check">✓</div>
+                    <div><span class="number">21.</span> Executive CMMC Awareness Presentations</div>
+                </div>
+                <div class="deliverable-item">
+                    <div class="check">✓</div>
+                    <div><span class="number">22.</span> Training Attendance Records + Test Results</div>
+                </div>
+                <div class="deliverable-item">
+                    <div class="check">✓</div>
+                    <div><span class="number">23.</span> Business Continuity Plan + Backup Strategy</div>
+                </div>
+                <div class="deliverable-item">
+                    <div class="check">✓</div>
+                    <div><span class="number">24.</span> Backup Test Evidence + Coverage Matrix</div>
+                </div>
+                <div class="deliverable-item">
+                    <div class="check">✓</div>
+                    <div><span class="number">25.</span> RTO/RPO Documentation + Recovery Procedures</div>
+                </div>
+                <div class="deliverable-item">
+                    <div class="check">✓</div>
+                    <div><span class="number">26.</span> Third-Party Risk Management Standard</div>
+                </div>
+                <div class="deliverable-item">
+                    <div class="check">✓</div>
+                    <div><span class="number">27.</span> Supplier Assessment Templates + Review Schedule</div>
+                </div>
+                <div class="deliverable-item">
+                    <div class="check">✓</div>
+                    <div><span class="number">28.</span> Physical Security Standards + Facility Controls</div>
+                </div>
+                <div class="deliverable-item">
+                    <div class="check">✓</div>
+                    <div><span class="number">29.</span> Media Protection Standard + NIST 800-88 Procedures</div>
+                </div>
+                <div class="deliverable-item">
+                    <div class="check">✓</div>
+                    <div><span class="number">30.</span> Sanitization Certificates + Disposal Records</div>
+                </div>
+                <div class="deliverable-item">
+                    <div class="check">✓</div>
+                    <div><span class="number">31.</span> Personnel Security Standard + Background Checks</div>
+                </div>
+                <div class="deliverable-item">
+                    <div class="check">✓</div>
+                    <div><span class="number">32.</span> Acceptable Use Policy + User Agreements</div>
+                </div>
+                <div class="deliverable-item">
+                    <div class="check">✓</div>
+                    <div><span class="number">33.</span> Onboarding/Offboarding SLA + Checklists</div>
+                </div>
+                <div class="deliverable-item">
+                    <div class="check">✓</div>
+                    <div><span class="number">34.</span> System Security Plan (SSP) - Complete</div>
+                </div>
+                <div class="deliverable-item">
+                    <div class="check">✓</div>
+                    <div><span class="number">35.</span> Plan of Action & Milestones (POA&M)</div>
+                </div>
+                <div class="deliverable-item">
+                    <div class="check">✓</div>
+                    <div><span class="number">36.</span> Evidence Repository + Indexing System</div>
+                </div>
+                <div class="deliverable-item">
+                    <div class="check">✓</div>
+                    <div><span class="number">37.</span> Master Control Index + Traceability Matrix</div>
+                </div>
+                <div class="deliverable-item">
+                    <div class="check">✓</div>
+                    <div><span class="number">38.</span> Compliance Dashboards + Real-Time Monitoring</div>
+                </div>
+                <div class="deliverable-item">
+                    <div class="check">✓</div>
+                    <div><span class="number">39.</span> Quarterly Management Review Reports</div>
+                </div>
+                <div class="deliverable-item">
+                    <div class="check">✓</div>
+                    <div><span class="number">40.</span> SPRS Scoring Workbook + Re-Posting Cadence</div>
+                </div>
+                <div class="deliverable-item">
+                    <div class="check">✓</div>
+                    <div><span class="number">41.</span> Mock C3PAO Assessment + Interview Scripts</div>
+                </div>
+                <div class="deliverable-item">
+                    <div class="check">✓</div>
+                    <div><span class="number">42.</span> Gap Analysis Report + Remediation Roadmap</div>
+                </div>
+                <div class="deliverable-item">
+                    <div class="check">✓</div>
+                    <div><span class="number">43.</span> Corrective Action Plan (CAP) + Timeline</div>
+                </div>
+                <div class="deliverable-item">
+                    <div class="check">✓</div>
+                    <div><span class="number">44.</span> Final Readiness Benchmark Report</div>
+                </div>
+                <div class="deliverable-item">
+                    <div class="check">✓</div>
+                    <div><span class="number">45.</span> Governance Charter + Organizational Structure</div>
+                </div>
+                <div class="deliverable-item">
+                    <div class="check">✓</div>
+                    <div><span class="number">46.</span> RACI Matrix + Role Definitions</div>
+                </div>
+                <div class="deliverable-item">
+                    <div class="check">✓</div>
+                    <div><span class="number">47.</span> Change Control Process + Request Forms</div>
+                </div>
+                <div class="deliverable-item">
+                    <div class="check">✓</div>
+                    <div><span class="number">48.</span> Documentation Templates with YAML Front Matter</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <div class="footer">
+            <h3>🎯 Ready for C3PAO Assessment</h3>
+            <p>
+                Comprehensive cybersecurity and compliance program aligned to CMMC v2 and NIST SP 800-171 Rev.3
+            </p>
+            <div class="contact">
+                <strong>MVL Group</strong><br>
+                Cybersecurity & Compliance Division<br>
+                CMMC v2 | NIST SP 800-171 Rev.3 | DFARS 7012 Readiness Program
+            </div>
+            <p style="margin-top: 30px; font-size: 0.9em; opacity: 0.6;">
+                © 2025 MVL Group. All rights reserved. This document contains confidential information.
+            </p>
+        </div>
+    </div>
+</body>
+</html>
