@@ -444,6 +444,7 @@
     <a href="#enclave">CUI Enclave</a>
     <a href="#incident">Incident Response</a>
     <a href="#cmmc-map">CMMC Mapping</a>
+    <a href="#remediation">Remediation</a>
     <a href="#audit">Audit Readiness</a>
   </nav>
 </div>
@@ -530,9 +531,9 @@
       <line x1="550" y1="206" x2="550" y2="239" stroke="#60a5fa" stroke-width="2" marker-end="url(#arrow)"/>
 
       <!-- PRIMARY RECEIVER -->
-      <rect x="400" y="242" width="300" height="48" rx="10" fill="#1e3a5f" stroke="#60a5fa" stroke-width="1"/>
-      <text x="550" y="263" text-anchor="middle" fill="#fff" font-size="13" font-weight="600">&#x1F464; Primary Receiver (Executive)</text>
-      <text x="550" y="280" text-anchor="middle" fill="#93c5fd" font-size="10">Initial CUI Triage &amp; Classification</text>
+      <rect x="350" y="242" width="400" height="48" rx="10" fill="#1e3a5f" stroke="#60a5fa" stroke-width="1"/>
+      <text x="550" y="263" text-anchor="middle" fill="#fff" font-size="13" font-weight="600">&#x1F464; Primary Receivers: Cecil Reyes / John Hilker / Abie Musa</text>
+      <text x="550" y="280" text-anchor="middle" fill="#93c5fd" font-size="10">CUI Triage, Classification &amp; Distribution</text>
 
       <!-- Arrow down -->
       <line x1="550" y1="292" x2="550" y2="325" stroke="#60a5fa" stroke-width="2" marker-end="url(#arrow)"/>
@@ -597,11 +598,12 @@
       <text x="550" y="779" text-anchor="middle" fill="#d8b4fe" font-size="10">Conditional Access &bull; No Anonymous Links &bull; Download Blocked</text>
 
       <!-- REDACTION FLOW -->
-      <rect x="60" y="640" width="260" height="80" rx="10" fill="#1e1b3a" stroke="#818cf8" stroke-width="1"/>
-      <text x="190" y="662" text-anchor="middle" fill="#fff" font-size="12" font-weight="600">&#x1F504; Post-Award Redaction Process</text>
-      <text x="190" y="682" text-anchor="middle" fill="#a5b4fc" font-size="10.5">Full Version &#x2192; CUI Label</text>
-      <text x="190" y="698" text-anchor="middle" fill="#a5b4fc" font-size="10.5">Redacted Version &#x2192; CUI-Redacted Label</text>
-      <text x="190" y="714" text-anchor="middle" fill="#818cf8" font-size="10">Role-based distribution via Entra groups</text>
+      <rect x="60" y="640" width="260" height="86" rx="10" fill="#1e1b3a" stroke="#818cf8" stroke-width="1"/>
+      <text x="190" y="660" text-anchor="middle" fill="#fff" font-size="12" font-weight="600">&#x1F504; Post-Award Redaction (Cecil)</text>
+      <text x="190" y="678" text-anchor="middle" fill="#a5b4fc" font-size="10.5">Full Version &#x2192; CUI Label</text>
+      <text x="190" y="694" text-anchor="middle" fill="#a5b4fc" font-size="10.5">Redacted Version &#x2192; CUI-Redacted Label</text>
+      <text x="190" y="710" text-anchor="middle" fill="#818cf8" font-size="10">Full &#x2192; Accounts | Redacted &#x2192; Site Team</text>
+      <text x="190" y="722" text-anchor="middle" fill="#818cf8" font-size="9">Abie/John sign &amp; execute awards</text>
 
       <!-- SUBMISSION -->
       <line x1="550" y1="792" x2="550" y2="830" stroke="#60a5fa" stroke-width="2" marker-end="url(#arrow)"/>
@@ -619,30 +621,35 @@
   <!-- PRE-AWARD / POST-AWARD DETAIL -->
   <div class="grid-2" style="margin-top:20px;">
     <div class="card">
-      <h3><span style="color:var(--cyan);">&#x25C9;</span> Pre-Award CUI Flow</h3>
+      <h3><span style="color:var(--cyan);">&#x25C9;</span> Pre-Award CUI Flow (Current → Target)</h3>
+      <h4>Target State (M365 GCC G5)</h4>
       <ol>
-        <li><strong>Government transmits</strong> RFP/RFI via Exchange Online GCC or PIEE portal</li>
-        <li><strong>Primary Receiver</strong> (Executive) triages and applies initial sensitivity label</li>
-        <li><strong>Stored</strong> in dedicated CUI SharePoint Pre-Award Library (versioning + retention on)</li>
-        <li><strong>Internal sharing</strong> via Teams (backed by SharePoint) — restricted to CUI-Proposal Entra group</li>
-        <li><strong>External sharing</strong> (subcontractors) via GCC B2B Guest Access only — DLP + label enforced, no anonymous links, downloads blocked if required</li>
-        <li><strong>Offer submission</strong> via PIEE or secure government email channel</li>
+        <li><strong>Cecil Reyes</strong> or <strong>Executives (Abie/John)</strong> receive RFP/RFI via Exchange Online GCC, PIEE Portal, or WAWF</li>
+        <li><strong>Cecil</strong> applies CUI sensitivity label and stores in <strong>CUI SharePoint Pre-Award Library</strong> (replaces current Dropbox workflow)</li>
+        <li><strong>Distribution</strong> to Proposal Team (16 members) via SharePoint permissions — no file duplication needed</li>
+        <li><strong>Subcontractor/supplier sharing</strong> via GCC B2B Guest Access only — DLP + label enforced, no anonymous links</li>
+        <li><strong>Offers received</strong> from subcontractors/suppliers, pricing processed in-house by Procurement team</li>
+        <li><strong>Final offer submitted</strong> to client via PIEE/WAWF or secure government email</li>
       </ol>
+      <div class="alert alert-danger" style="margin-top:10px;">
+        <span class="alert-icon">&#x1F6A8;</span>
+        <div><strong>Current Gap:</strong> Cecil currently stores CUI in <strong>Dropbox</strong> (commercial cloud) and distributes from there. Dropbox is <em>not</em> FedRAMP authorized and violates NIST 800-171 / CMMC L2 requirements for CUI storage. Migration to SharePoint GCC is mandatory. See Section "Remediation" below.</div>
+      </div>
     </div>
     <div class="card">
       <h3><span style="color:var(--green);">&#x25C9;</span> Post-Award CUI Flow</h3>
       <ol>
-        <li><strong>Government issues</strong> contract/mod via Exchange Online GCC</li>
-        <li><strong>Executive Review</strong> + digital e-signature</li>
-        <li><strong>Stored</strong> in CUI Post-Award Library with full audit trail</li>
-        <li><strong>Automated redaction process</strong> creates two versions:
+        <li><strong>Government issues</strong> award documents via DoD SAFE or email — received primarily by <strong>Cecil Reyes</strong>, <strong>John Hilker</strong>, or <strong>Abie Musa</strong></li>
+        <li><strong>Abie Musa</strong> or <strong>John Hilker</strong> sign and execute the award, return to government</li>
+        <li><strong>Cecil Reyes</strong> creates two versions of the award:
           <ul>
-            <li><strong>Full Version</strong> — labeled <code>CUI</code>, restricted to CUI-Exec / CUI-Projects</li>
-            <li><strong>Redacted Version</strong> — labeled <code>CUI-Redacted</code>, shared with Site Team / Accounts</li>
+            <li><strong>Full Version</strong> — labeled <span class="chip chip-red">CUI</span>, sent to <strong>Accounts Team</strong> (Bala Chandran, Jamil Oudeif)</li>
+            <li><strong>Redacted Version</strong> — labeled <span class="chip chip-amber">CUI-Redacted</span>, sent to <strong>Site Team</strong> via Project Managers (Ziad Jabr, Joe Amon)</li>
           </ul>
         </li>
-        <li><strong>Access governed</strong> by Entra role-based security groups</li>
-        <li><strong>Financial data</strong> routed to Finance Restricted Library (CUI-Accounts group only)</li>
+        <li><strong>Site Team PMs</strong> (Ziad, Joe) distribute redacted CUI to downstream team members, Coordination Dept. (Naleef, Shifan, Nematullah, Rifath, Santhosh)</li>
+        <li><strong>Financial CUI</strong> — full award with pricing in Finance Restricted Library (CUI-Accounts group only)</li>
+        <li><strong>All access governed</strong> by Entra role-based security groups with DLP enforcement</li>
       </ol>
     </div>
   </div>
@@ -751,60 +758,152 @@
     <div class="section-num" style="background:var(--amber);">4</div>
     <h2>CUI User Population &amp; Entra Security Groups</h2>
   </div>
-  <p class="section-desc">Only ~35 users out of ~300 total are within the CUI processing boundary. All CUI users are licensed with GCC G5, device-managed via Intune, under Conditional Access, and assigned to specific Entra security groups.</p>
+  <p class="section-desc">Only 35 identified users out of ~300 total are within the CUI processing boundary. All CUI users are licensed with GCC G5, device-managed via Intune, under Conditional Access, and assigned to specific Entra security groups.</p>
 
-  <table class="styled-table">
-    <thead>
-      <tr>
-        <th>Security Group</th>
-        <th>Members</th>
-        <th>CUI Libraries Accessed</th>
-        <th>Key Permissions</th>
-        <th>Conditional Access</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><strong>CUI-Exec</strong></td>
-        <td>C-Suite, VPs (~5)</td>
-        <td>All CUI Libraries</td>
-        <td>Full Read/Write, Approval authority</td>
-        <td>MFA + Compliant Device + US Location</td>
-      </tr>
-      <tr>
-        <td><strong>CUI-Proposal</strong></td>
-        <td>BD &amp; Proposal team (~8-10)</td>
-        <td>Pre-Award Library</td>
-        <td>Read/Write on proposals, Read on templates</td>
-        <td>MFA + Compliant Device</td>
-      </tr>
-      <tr>
-        <td><strong>CUI-Projects</strong></td>
-        <td>Project Managers, Engineers (~12-15)</td>
-        <td>Post-Award Library, Redacted Library</td>
-        <td>Read/Write deliverables, Read contracts</td>
-        <td>MFA + Compliant Device</td>
-      </tr>
-      <tr>
-        <td><strong>CUI-Accounts</strong></td>
-        <td>Finance &amp; Accounting (~5)</td>
-        <td>Finance Restricted Library, Redacted Library</td>
-        <td>Read/Write financial CUI, Read redacted</td>
-        <td>MFA + Compliant Device</td>
-      </tr>
-      <tr>
-        <td><strong>CUI-Guests</strong></td>
-        <td>Subcontractors (variable)</td>
-        <td>Designated shared folders only</td>
-        <td>Read-only (no download unless approved)</td>
-        <td>MFA + Terms of Use + Session timeout</td>
-      </tr>
-    </tbody>
-  </table>
+  <!-- EXECUTIVE GROUP -->
+  <div class="card">
+    <h3><span class="chip chip-red">CUI-Exec</span> Executive Leadership (3 Members)</h3>
+    <p>Full access to all CUI libraries. Contract signatories and final approval authority.</p>
+    <table class="styled-table">
+      <thead><tr><th>Name</th><th>Role</th><th>CUI Function</th><th>Libraries</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Abie Musa</strong></td><td>Executive</td><td>Receives CUI from DoD/Client, signs &amp; executes awards</td><td>All Libraries</td></tr>
+        <tr><td><strong>Hani Khawaja</strong></td><td>Executive</td><td>Executive oversight, approval authority</td><td>All Libraries</td></tr>
+        <tr><td><strong>John Hilker</strong></td><td>Executive</td><td>Receives awards from DoD SAFE/Email, signs &amp; executes contracts</td><td>All Libraries</td></tr>
+      </tbody>
+    </table>
+    <p style="font-size:13px;color:var(--text-light);margin-top:8px;"><strong>Conditional Access:</strong> MFA + Compliant Device + US Location Restriction</p>
+  </div>
+
+  <!-- PROPOSAL GROUP -->
+  <div class="card">
+    <h3><span class="chip chip-amber">CUI-Proposal</span> Proposal &amp; Business Development Team (16 Members)</h3>
+    <p>Primary CUI intake team. <strong>Cecil Reyes</strong> is the principal CUI handler — receives, stores, and distributes CUI to the organization.</p>
+    <table class="styled-table">
+      <thead><tr><th>Name</th><th>CUI Function</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Cecil Reyes</strong> <span class="chip chip-red" style="font-size:10px;">Primary Handler</span></td><td>Receives CUI from client/DoD websites (PIEE, WAWF), stores &amp; distributes to relevant teams, creates redacted/full award versions</td></tr>
+        <tr><td>Jun Cruz</td><td>Proposal development, pricing support</td></tr>
+        <tr><td>Norie L. Mendoza</td><td>Proposal support</td></tr>
+        <tr><td>Jailani Mohaideen</td><td>Proposal support</td></tr>
+        <tr><td>Andrea Harouny</td><td>Proposal development</td></tr>
+        <tr><td>Martin Thankachan</td><td>Proposal development</td></tr>
+        <tr><td>Norman Matunan</td><td>Proposal support</td></tr>
+        <tr><td>Jonathan N. Clappar</td><td>Proposal support</td></tr>
+        <tr><td>Cindy Karam</td><td>Proposal development</td></tr>
+        <tr><td>Ayoub Kassis</td><td>Proposal development</td></tr>
+        <tr><td>Suresh Sathianathan</td><td>Proposal development</td></tr>
+        <tr><td>Martinez Jeffrey</td><td>Proposal support</td></tr>
+        <tr><td>Ali Asgar</td><td>Proposal support</td></tr>
+        <tr><td>Gilbert Jadarian</td><td>Proposal development</td></tr>
+        <tr><td>Kento Kumagai</td><td>Proposal support</td></tr>
+      </tbody>
+    </table>
+    <p style="font-size:13px;color:var(--text-light);margin-top:8px;"><strong>Libraries:</strong> Pre-Award Library (Read/Write) &nbsp;|&nbsp; <strong>Conditional Access:</strong> MFA + Compliant Device</p>
+  </div>
+
+  <!-- CONTACTS -->
+  <div class="card">
+    <h3><span class="chip chip-cyan">CUI-Contacts</span> External Contacts / Liaison (2 Members)</h3>
+    <p>Liaison between MVL and subcontractors/suppliers for CUI-related communications.</p>
+    <table class="styled-table">
+      <thead><tr><th>Name</th><th>CUI Function</th></tr></thead>
+      <tbody>
+        <tr><td>Arathy Ramesan</td><td>Subcontractor/supplier coordination</td></tr>
+        <tr><td>Nivas Thalla</td><td>Subcontractor/supplier coordination</td></tr>
+      </tbody>
+    </table>
+    <p style="font-size:13px;color:var(--text-light);margin-top:8px;"><strong>Libraries:</strong> Pre-Award (Read) &nbsp;|&nbsp; <strong>Conditional Access:</strong> MFA + Compliant Device</p>
+  </div>
+
+  <!-- PROJECTS GROUP -->
+  <div class="card">
+    <h3><span class="chip chip-green">CUI-Projects</span> Project Delivery Team (2 Members + Downstream Distribution)</h3>
+    <p>Receive post-award CUI (redacted versions) and distribute to their respective site teams on a need-to-know basis.</p>
+    <table class="styled-table">
+      <thead><tr><th>Name</th><th>CUI Function</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Ziad Jabr</strong></td><td>Project Manager — receives redacted CUI, distributes to site team</td></tr>
+        <tr><td><strong>Joe Amon</strong></td><td>Project Manager — receives redacted CUI, distributes to site team</td></tr>
+      </tbody>
+    </table>
+    <p style="font-size:13px;color:var(--text-light);margin-top:8px;"><strong>Libraries:</strong> Post-Award (Read), Redacted Library (Read/Write) &nbsp;|&nbsp; <strong>Conditional Access:</strong> MFA + Compliant Device</p>
+    <div class="alert alert-info" style="margin-top:10px;">
+      <span class="alert-icon">&#x2139;</span>
+      <div><strong>Note:</strong> Ziad and Joe further distribute <em>redacted</em> CUI to their site team members. These downstream recipients should also be enumerated in the CUI boundary if they access CUI-labeled content in SharePoint/Teams.</div>
+    </div>
+  </div>
+
+  <!-- PROCUREMENT GROUP -->
+  <div class="card">
+    <h3><span class="chip chip-purple">CUI-Procurement</span> Procurement Department (7 Members)</h3>
+    <p>Handle subcontractor/supplier pricing and procurement CUI. Receive offers from subcontractors and process pricing in-house.</p>
+    <table class="styled-table">
+      <thead><tr><th>Name</th><th>CUI Function</th></tr></thead>
+      <tbody>
+        <tr><td>Mahesh Bhavani</td><td>Procurement — subcontractor pricing CUI</td></tr>
+        <tr><td>Marman Imperial</td><td>Procurement support</td></tr>
+        <tr><td>Arun Nath</td><td>Procurement support</td></tr>
+        <tr><td>Vera Chaparian</td><td>Procurement support</td></tr>
+        <tr><td>Lince Mary</td><td>Procurement support</td></tr>
+        <tr><td>Rahul Nair</td><td>Procurement support</td></tr>
+        <tr><td>Rabih El Khoury</td><td>Procurement support</td></tr>
+      </tbody>
+    </table>
+    <p style="font-size:13px;color:var(--text-light);margin-top:8px;"><strong>Libraries:</strong> Pre-Award Library (Read/Write on procurement CUI) &nbsp;|&nbsp; <strong>Conditional Access:</strong> MFA + Compliant Device</p>
+  </div>
+
+  <!-- COORDINATION GROUP -->
+  <div class="card">
+    <h3><span class="chip chip-blue">CUI-Coordination</span> Coordination Department (5 Members)</h3>
+    <p>Coordinate project delivery and receive CUI information indirectly through distribution chains.</p>
+    <table class="styled-table">
+      <thead><tr><th>Name</th><th>CUI Function</th></tr></thead>
+      <tbody>
+        <tr><td>Naleef Abdeen</td><td>Project coordination — indirect CUI recipient</td></tr>
+        <tr><td>Shifan Saldin Ali</td><td>Project coordination</td></tr>
+        <tr><td>Nematullah Mohammad</td><td>Project coordination</td></tr>
+        <tr><td>Rifath Yoosuf</td><td>Project coordination</td></tr>
+      </tbody>
+    </table>
+    <p style="font-size:13px;color:var(--text-light);margin-top:8px;"><strong>Libraries:</strong> Redacted Library (Read) &nbsp;|&nbsp; <strong>Conditional Access:</strong> MFA + Compliant Device</p>
+  </div>
+
+  <!-- ACCOUNTS GROUP -->
+  <div class="card">
+    <h3><span class="chip chip-amber">CUI-Accounts</span> Accounts / Finance (2 Members)</h3>
+    <p>Receive full (non-redacted) award documents for financial processing, invoicing, and cost tracking.</p>
+    <table class="styled-table">
+      <thead><tr><th>Name</th><th>CUI Function</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Bala Chandran</strong></td><td>Financial CUI processing — invoicing, cost data</td></tr>
+        <tr><td><strong>Jamil Oudeif</strong></td><td>Financial CUI processing — accounts</td></tr>
+      </tbody>
+    </table>
+    <p style="font-size:13px;color:var(--text-light);margin-top:8px;"><strong>Libraries:</strong> Finance Restricted Library (Read/Write), Redacted Library (Read) &nbsp;|&nbsp; <strong>Conditional Access:</strong> MFA + Compliant Device</p>
+  </div>
+
+  <!-- SUMMARY TABLE -->
+  <div class="card" style="margin-top:20px;">
+    <h3>&#x1F4CA; CUI Population Summary</h3>
+    <table class="styled-table">
+      <thead><tr><th>Entra Security Group</th><th>Count</th><th>Primary Library Access</th><th>CUI Receipt Type</th></tr></thead>
+      <tbody>
+        <tr><td><strong>CUI-Exec</strong></td><td>3</td><td>All Libraries</td><td>Direct from DoD/Client</td></tr>
+        <tr><td><strong>CUI-Proposal</strong></td><td>16</td><td>Pre-Award Library</td><td>Direct (Cecil) + Internal distribution</td></tr>
+        <tr><td><strong>CUI-Contacts</strong></td><td>2</td><td>Pre-Award (Read)</td><td>Indirect — subcontractor liaison</td></tr>
+        <tr><td><strong>CUI-Projects</strong></td><td>2 (+downstream)</td><td>Post-Award, Redacted</td><td>Indirect — redacted versions from Cecil</td></tr>
+        <tr><td><strong>CUI-Procurement</strong></td><td>7</td><td>Pre-Award (Procurement)</td><td>Indirect — pricing/subcontractor data</td></tr>
+        <tr><td><strong>CUI-Coordination</strong></td><td>5</td><td>Redacted (Read)</td><td>Indirect — coordination data</td></tr>
+        <tr><td><strong>CUI-Accounts</strong></td><td>2</td><td>Finance Restricted, Redacted</td><td>Indirect — full awards from Cecil</td></tr>
+        <tr style="background:#f1f5f9;font-weight:700;"><td>TOTAL CUI USERS</td><td>37</td><td colspan="2">of ~300 total tenant users</td></tr>
+      </tbody>
+    </table>
+  </div>
 
   <div class="alert alert-info">
     <span class="alert-icon">&#x2139;</span>
-    <div><strong>Auditor Clarity:</strong> Not the entire 300-user tenant processes CUI. Only the defined subset within named Entra security groups has access. This is formally documented in the System Security Plan (SSP) and provides clear CUI boundary scoping for CMMC Level 2 assessment.</div>
+    <div><strong>Auditor Clarity:</strong> Not the entire 300-user tenant processes CUI. Only the 37 identified users within named Entra security groups have access. This is formally documented in the System Security Plan (SSP) and provides clear CUI boundary scoping for CMMC Level 2 assessment. <strong>Cecil Reyes</strong> is the principal CUI handler (single point of distribution), which creates both efficiency and a key-person risk that should be addressed in the Business Continuity Plan.</div>
   </div>
 </section>
 
@@ -1451,6 +1550,97 @@
         <p>Remove CUI from unauthorized locations. Update DLP rules / Conditional Access to prevent recurrence. Conduct user retraining if human error. Update SSP and POA&amp;M as needed. Close incident with full documentation.</p>
       </div>
     </div>
+  </div>
+</section>
+
+<!-- ═══════════════════ REMEDIATION ═══════════════════ -->
+<section id="remediation">
+  <div class="section-header">
+    <div class="section-num" style="background:var(--red);">!</div>
+    <h2>Current State Gaps &amp; Remediation Plan</h2>
+  </div>
+  <p class="section-desc">Critical compliance gaps identified in MVL Group's current CUI handling workflow that must be remediated before CMMC Level 2 assessment.</p>
+
+  <div class="alert alert-danger">
+    <span class="alert-icon">&#x1F6A8;</span>
+    <div><strong>CRITICAL FINDING — Dropbox CUI Storage:</strong> Cecil Reyes currently stores CUI in <strong>Dropbox (commercial cloud)</strong> and distributes CUI from there to internal teams, subcontractors, and suppliers. Dropbox is <em>not</em> FedRAMP authorized and does not meet NIST SP 800-171 requirements for CUI storage, transmission, or access control. This is a <strong>direct violation</strong> of CMMC Level 2 controls SC.L2-3.13.1 (Boundary Protection), SC.L2-3.13.8 (CUI on Public Networks), and MP.L2-3.8.1 (Media Protection).</div>
+  </div>
+
+  <div class="grid-2">
+    <div class="card">
+      <h3>&#x274C; Current State (Non-Compliant)</h3>
+      <table class="styled-table">
+        <thead><tr><th>Process Step</th><th>Current Tool</th><th>Risk</th></tr></thead>
+        <tbody>
+          <tr><td>CUI receipt from client/DoD</td><td>Email (various platforms)</td><td style="color:var(--amber);">Medium — needs GCC email</td></tr>
+          <tr><td>CUI storage &amp; filing</td><td><strong style="color:var(--red);">Dropbox (Commercial)</strong></td><td style="color:var(--red);font-weight:700;">CRITICAL — Not FedRAMP</td></tr>
+          <tr><td>Distribution to internal team</td><td><strong style="color:var(--red);">Dropbox sharing links</strong></td><td style="color:var(--red);font-weight:700;">CRITICAL — No DLP, no labels</td></tr>
+          <tr><td>Distribution to subcontractors</td><td><strong style="color:var(--red);">Dropbox / Email</strong></td><td style="color:var(--red);font-weight:700;">CRITICAL — Uncontrolled external</td></tr>
+          <tr><td>Offer submission to government</td><td>Email / PIEE / WAWF</td><td style="color:var(--amber);">Medium — needs TLS verification</td></tr>
+          <tr><td>Post-award redaction</td><td>Manual (Cecil)</td><td style="color:var(--amber);">Medium — no audit trail</td></tr>
+          <tr><td>Award distribution (full/redacted)</td><td><strong style="color:var(--red);">Dropbox / Email</strong></td><td style="color:var(--red);font-weight:700;">CRITICAL — No access control</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="card">
+      <h3>&#x2705; Target State (CMMC Compliant)</h3>
+      <table class="styled-table">
+        <thead><tr><th>Process Step</th><th>Target Tool</th><th>Status</th></tr></thead>
+        <tbody>
+          <tr><td>CUI receipt from client/DoD</td><td>Exchange Online GCC G5</td><td style="color:var(--green);">Compliant</td></tr>
+          <tr><td>CUI storage &amp; filing</td><td><strong>SharePoint CUI Site (GCC)</strong></td><td style="color:var(--green);">FedRAMP + Labels + DLP</td></tr>
+          <tr><td>Distribution to internal team</td><td><strong>SharePoint permissions + Teams</strong></td><td style="color:var(--green);">Entra groups + DLP enforced</td></tr>
+          <tr><td>Distribution to subcontractors</td><td><strong>GCC B2B Guest Access</strong></td><td style="color:var(--green);">Conditional Access + Terms</td></tr>
+          <tr><td>Offer submission to government</td><td>PIEE / WAWF / GCC Email (TLS)</td><td style="color:var(--green);">Encrypted + audit logged</td></tr>
+          <tr><td>Post-award redaction</td><td>SharePoint versions + labels</td><td style="color:var(--green);">Full audit trail</td></tr>
+          <tr><td>Award distribution (full/redacted)</td><td><strong>SharePoint libraries + Entra</strong></td><td style="color:var(--green);">Role-based + DLP enforced</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="card" style="margin-top:20px;">
+    <h3>&#x1F4CB; Dropbox → SharePoint GCC Migration Plan</h3>
+    <div class="step">
+      <div class="step-num" style="background:var(--red);">1</div>
+      <div class="step-content">
+        <h4>Phase 1 — Inventory &amp; Classify (Week 1-2)</h4>
+        <p>Inventory all CUI content currently in Dropbox. Classify each item using MVL's data classification framework. Document what needs to move to which SharePoint CUI library (Pre-Award, Post-Award, Finance).</p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num" style="background:var(--orange);">2</div>
+      <div class="step-content">
+        <h4>Phase 2 — SharePoint CUI Infrastructure (Week 2-3)</h4>
+        <p>Build the CUI SharePoint Site Collection per the IT Admin Guide (Section 10). Create Pre-Award, Post-Award, Redacted, and Finance Restricted libraries. Configure sensitivity labels, DLP policies, and retention. Set Entra group permissions.</p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num" style="background:var(--amber);">3</div>
+      <div class="step-content">
+        <h4>Phase 3 — User Training (Week 3)</h4>
+        <p>Train <strong>Cecil Reyes</strong> (primary handler) on the new SharePoint workflow — uploading, labeling, and sharing CUI through the GCC environment. Train all 37 CUI users on sensitivity labels and DLP policy tips. Hands-on workshops recommended.</p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num" style="background:var(--green);">4</div>
+      <div class="step-content">
+        <h4>Phase 4 — Migration &amp; Cutover (Week 4)</h4>
+        <p>Migrate all CUI content from Dropbox to SharePoint GCC. Apply sensitivity labels to all migrated content (use service-side auto-labeling or bulk labeling). Verify permissions. Switch Cecil's workflow to SharePoint. Validate DLP is catching correctly.</p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num" style="background:var(--accent-blue);">5</div>
+      <div class="step-content">
+        <h4>Phase 5 — Dropbox Decommission (Week 5)</h4>
+        <p><strong>Block Dropbox</strong> via Zscaler ZIA cloud app control and Intune app restriction. Verify all CUI has been removed from Dropbox. Confirm with Dropbox admin that all MVL CUI data is purged. Document the migration for CMMC evidence (POA&amp;M closure).</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="alert alert-warning" style="margin-top:16px;">
+    <span class="alert-icon">&#x26A0;</span>
+    <div><strong>Additional Gap — Subcontractor/Supplier CUI Sharing:</strong> Currently CUI is shared with subcontractors and suppliers via Dropbox links or uncontrolled email. In the target state, all subcontractor CUI sharing must go through <strong>GCC B2B Guest Access</strong> with Conditional Access policies, Terms of Use acceptance, session timeouts, and DLP enforcement. Subcontractors must have their own CUI handling procedures documented and verified. Consider requiring a flow-down clause in subcontracts mandating adequate CUI protections (DFARS 252.204-7012).</div>
   </div>
 </section>
 
