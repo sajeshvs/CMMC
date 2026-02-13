@@ -1,0 +1,1658 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MVL Group — CUI Processing &amp; Protection Reference Guide | M365 GCC G5</title>
+<style>
+  :root {
+    --navy: #0a1628;
+    --dark-blue: #132044;
+    --accent-blue: #2563eb;
+    --light-blue: #3b82f6;
+    --cyan: #06b6d4;
+    --green: #10b981;
+    --amber: #f59e0b;
+    --red: #ef4444;
+    --orange: #f97316;
+    --purple: #8b5cf6;
+    --bg: #f8fafc;
+    --card-bg: #ffffff;
+    --text: #1e293b;
+    --text-light: #64748b;
+    --border: #e2e8f0;
+    --shield-gold: #d4a017;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.7;
+    font-size: 15px;
+  }
+
+  /* ── HEADER ── */
+  .hero {
+    background: linear-gradient(135deg, var(--navy) 0%, var(--dark-blue) 40%, #1e3a5f 100%);
+    color: #fff;
+    padding: 56px 40px 48px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.03'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+  }
+  .hero-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(255,255,255,0.1);
+    border: 1px solid rgba(255,255,255,0.2);
+    border-radius: 40px;
+    padding: 6px 20px;
+    font-size: 13px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    margin-bottom: 20px;
+    position: relative;
+  }
+  .hero h1 {
+    font-size: 2.4rem;
+    font-weight: 700;
+    margin-bottom: 10px;
+    position: relative;
+    letter-spacing: -0.5px;
+  }
+  .hero p.subtitle {
+    font-size: 1.1rem;
+    opacity: .8;
+    max-width: 720px;
+    margin: 0 auto;
+    position: relative;
+  }
+  .hero-meta {
+    display: flex;
+    justify-content: center;
+    gap: 32px;
+    margin-top: 24px;
+    flex-wrap: wrap;
+    position: relative;
+  }
+  .hero-meta span {
+    font-size: 13px;
+    opacity: .65;
+  }
+
+  /* ── NAV ── */
+  .toc-bar {
+    background: #fff;
+    border-bottom: 1px solid var(--border);
+    padding: 14px 40px;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: 0 1px 4px rgba(0,0,0,.06);
+  }
+  .toc-bar nav {
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+    justify-content: center;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  .toc-bar a {
+    font-size: 12.5px;
+    font-weight: 600;
+    color: var(--text-light);
+    text-decoration: none;
+    padding: 5px 14px;
+    border-radius: 20px;
+    transition: all .2s;
+    white-space: nowrap;
+  }
+  .toc-bar a:hover {
+    background: var(--accent-blue);
+    color: #fff;
+  }
+
+  /* ── LAYOUT ── */
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 24px;
+  }
+
+  section {
+    padding: 48px 0;
+  }
+  section + section {
+    border-top: 1px solid var(--border);
+  }
+
+  .section-header {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 28px;
+  }
+  .section-num {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 44px;
+    height: 44px;
+    border-radius: 12px;
+    font-weight: 800;
+    font-size: 18px;
+    color: #fff;
+    flex-shrink: 0;
+  }
+  .section-header h2 {
+    font-size: 1.55rem;
+    font-weight: 700;
+    letter-spacing: -0.3px;
+  }
+  .section-desc {
+    color: var(--text-light);
+    margin-bottom: 28px;
+    max-width: 860px;
+    font-size: 15px;
+  }
+
+  /* ── CARDS ── */
+  .card {
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 28px;
+    margin-bottom: 20px;
+    box-shadow: 0 1px 3px rgba(0,0,0,.04);
+  }
+  .card h3 {
+    font-size: 1.1rem;
+    font-weight: 700;
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .card h4 {
+    font-size: .95rem;
+    font-weight: 700;
+    margin: 16px 0 8px;
+    color: var(--accent-blue);
+  }
+  .card p, .card li {
+    font-size: 14.5px;
+    line-height: 1.75;
+  }
+  .card ul, .card ol {
+    padding-left: 22px;
+    margin: 8px 0;
+  }
+  .card li { margin-bottom: 4px; }
+
+  /* ── GRID ── */
+  .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+  .grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 20px; }
+  .grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
+  @media (max-width: 900px) {
+    .grid-2, .grid-3, .grid-4 { grid-template-columns: 1fr; }
+  }
+
+  /* ── FLOW DIAGRAM ── */
+  .flow-container {
+    background: linear-gradient(135deg, #0f172a, #1e293b);
+    border-radius: 16px;
+    padding: 40px 24px;
+    overflow-x: auto;
+    margin: 20px 0;
+  }
+  .flow-container svg {
+    display: block;
+    margin: 0 auto;
+  }
+
+  /* ── BADGE CHIPS ── */
+  .chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 12px;
+    font-weight: 600;
+    padding: 3px 12px;
+    border-radius: 20px;
+    line-height: 1.6;
+  }
+  .chip-blue   { background: #dbeafe; color: #1d4ed8; }
+  .chip-green  { background: #d1fae5; color: #047857; }
+  .chip-amber  { background: #fef3c7; color: #b45309; }
+  .chip-red    { background: #fee2e2; color: #b91c1c; }
+  .chip-purple { background: #ede9fe; color: #6d28d9; }
+  .chip-cyan   { background: #cffafe; color: #0e7490; }
+
+  /* ── TABLES ── */
+  .styled-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 14px;
+    margin: 12px 0;
+  }
+  .styled-table th {
+    background: var(--dark-blue);
+    color: #fff;
+    font-weight: 600;
+    padding: 12px 16px;
+    text-align: left;
+    font-size: 13px;
+    text-transform: uppercase;
+    letter-spacing: .5px;
+  }
+  .styled-table td {
+    padding: 11px 16px;
+    border-bottom: 1px solid var(--border);
+    vertical-align: top;
+  }
+  .styled-table tr:hover td {
+    background: #f1f5f9;
+  }
+  .styled-table th:first-child { border-radius: 8px 0 0 0; }
+  .styled-table th:last-child  { border-radius: 0 8px 0 0; }
+
+  /* ── LAYER BLOCKS ── */
+  .layer-block {
+    border-left: 4px solid;
+    padding: 20px 24px;
+    margin-bottom: 16px;
+    border-radius: 0 12px 12px 0;
+    background: #fff;
+  }
+  .layer-block h3 {
+    font-size: 1rem;
+    margin-bottom: 10px;
+  }
+
+  /* ── ALERT BOXES ── */
+  .alert {
+    border-radius: 12px;
+    padding: 18px 22px;
+    margin: 16px 0;
+    font-size: 14px;
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+  }
+  .alert-icon { font-size: 20px; flex-shrink: 0; margin-top: 1px; }
+  .alert-info    { background: #eff6ff; border: 1px solid #bfdbfe; }
+  .alert-warning { background: #fffbeb; border: 1px solid #fde68a; }
+  .alert-danger  { background: #fef2f2; border: 1px solid #fecaca; }
+  .alert-success { background: #ecfdf5; border: 1px solid #a7f3d0; }
+
+  /* ── STEP BLOCKS ── */
+  .step {
+    display: flex;
+    gap: 18px;
+    margin-bottom: 22px;
+  }
+  .step-num {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 800;
+    font-size: 15px;
+    color: #fff;
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+  .step-content { flex: 1; }
+  .step-content h4 { font-size: .95rem; font-weight: 700; margin-bottom: 4px; }
+  .step-content p { font-size: 14px; color: var(--text-light); }
+
+  /* ── CODE BLOCKS ── */
+  .code-block {
+    background: #0f172a;
+    color: #e2e8f0;
+    border-radius: 10px;
+    padding: 20px;
+    font-family: 'Cascadia Code', 'Fira Code', monospace;
+    font-size: 13px;
+    line-height: 1.7;
+    overflow-x: auto;
+    margin: 12px 0;
+  }
+  .code-block .comment { color: #64748b; }
+  .code-block .keyword { color: #818cf8; }
+  .code-block .string  { color: #34d399; }
+  .code-block .highlight { color: #fbbf24; }
+
+  /* ── USER MSG BOXES ── */
+  .msg-box {
+    background: #fff;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 20px;
+    margin-bottom: 14px;
+  }
+  .msg-box .msg-title {
+    font-weight: 700;
+    font-size: 14px;
+    margin-bottom: 6px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .msg-box .msg-body {
+    font-size: 13.5px;
+    color: var(--text-light);
+    line-height: 1.7;
+  }
+  .msg-box .msg-body code {
+    background: #f1f5f9;
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-size: 12.5px;
+  }
+
+  /* ── ACCORDION ── */
+  details {
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    margin-bottom: 10px;
+    background: #fff;
+  }
+  details summary {
+    padding: 14px 20px;
+    font-weight: 700;
+    font-size: 14.5px;
+    cursor: pointer;
+    list-style: none;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  details summary::before {
+    content: '▸';
+    transition: transform .2s;
+    font-size: 12px;
+    color: var(--accent-blue);
+  }
+  details[open] summary::before { transform: rotate(90deg); }
+  details .detail-body {
+    padding: 0 20px 18px;
+    font-size: 14px;
+    line-height: 1.75;
+  }
+
+  /* ── PRINT ── */
+  @media print {
+    .toc-bar { display: none; }
+    .hero { padding: 30px 20px; }
+    section { padding: 24px 0; }
+    .flow-container { background: #fff; border: 2px solid #000; }
+  }
+
+  /* ── FOOTER ── */
+  footer {
+    background: var(--navy);
+    color: rgba(255,255,255,.5);
+    text-align: center;
+    padding: 28px;
+    font-size: 13px;
+  }
+  footer strong { color: rgba(255,255,255,.8); }
+</style>
+</head>
+<body>
+
+<!-- ═════════════════════════════════════════════ HERO ═════════════════════════════════════════════ -->
+<header class="hero">
+  <div class="hero-badge">&#x1F6E1; CONTROLLED UNCLASSIFIED INFORMATION</div>
+  <h1>MVL Group — CUI Processing &amp; Protection<br>Reference Guide</h1>
+  <p class="subtitle">Comprehensive architecture, data-flow, Microsoft 365 GCC G5 configuration, DLP policies, Microsoft Purview sensitivity labeling, user guidance, and IT administrator procedures for CMMC Level 2 / NIST SP 800-171 Rev 3 compliance.</p>
+  <div class="hero-meta">
+    <span>&#x1F3E2; MVL Group</span>
+    <span>&#x2601; Microsoft 365 GCC G5 (FedRAMP Moderate)</span>
+    <span>&#x1F4CB; CMMC v2 Level 2 | NIST 800-171 R3</span>
+    <span>&#x1F4C5; February 2026</span>
+  </div>
+</header>
+
+<!-- ═════════════════════════ STICKY NAV ═════════════════════════ -->
+<div class="toc-bar">
+  <nav>
+    <a href="#platform">Platform</a>
+    <a href="#cui-flow">CUI Flow</a>
+    <a href="#security-layers">Security Layers</a>
+    <a href="#groups">Groups &amp; Users</a>
+    <a href="#labels">Sensitivity Labels</a>
+    <a href="#dlp">DLP Policies</a>
+    <a href="#auto-label">Auto-Labeling</a>
+    <a href="#manual-label">Manual Labeling</a>
+    <a href="#user-guidance">User Guidance</a>
+    <a href="#it-guide">IT Admin Guide</a>
+    <a href="#enclave">CUI Enclave</a>
+    <a href="#incident">Incident Response</a>
+    <a href="#cmmc-map">CMMC Mapping</a>
+    <a href="#audit">Audit Readiness</a>
+  </nav>
+</div>
+
+<div class="container">
+
+<!-- ═══════════════════ 1. CORE PLATFORM ═══════════════════ -->
+<section id="platform">
+  <div class="section-header">
+    <div class="section-num" style="background:var(--accent-blue);">1</div>
+    <h2>Core Platform — Microsoft 365 GCC G5</h2>
+  </div>
+  <p class="section-desc">MVL Group's CUI Authorized Processing Environment (APE) is built entirely on Microsoft 365 GCC G5 (FedRAMP Moderate). This provides US data residency, logical segregation from commercial tenants, and background-screened Microsoft personnel.</p>
+
+  <div class="grid-3">
+    <div class="card">
+      <h3>&#x2601; Cloud Environment</h3>
+      <ul>
+        <li><strong>Tenant:</strong> Microsoft 365 GCC G5</li>
+        <li><strong>Authorization:</strong> FedRAMP Moderate</li>
+        <li><strong>Data Residency:</strong> US (CONUS)</li>
+        <li><strong>Segregation:</strong> Logical isolation from commercial</li>
+        <li><strong>Personnel:</strong> Background-screened</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3>&#x1F512; Security Stack</h3>
+      <ul>
+        <li><strong>Identity:</strong> Microsoft Entra ID (Azure AD)</li>
+        <li><strong>Endpoint:</strong> Microsoft Intune + Defender XDR</li>
+        <li><strong>Network:</strong> Zscaler ZIA / ZPA</li>
+        <li><strong>Data:</strong> Microsoft Purview (MIP + DLP)</li>
+        <li><strong>SIEM:</strong> Microsoft Sentinel</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3>&#x1F4CA; Compliance Scope</h3>
+      <ul>
+        <li><strong>Framework:</strong> CMMC v2 Level 2</li>
+        <li><strong>Controls:</strong> NIST SP 800-171 Rev 3 (110)</li>
+        <li><strong>CUI Regulation:</strong> 32 CFR Part 2002</li>
+        <li><strong>DFARS:</strong> 252.204-7012</li>
+        <li><strong>CUI Users:</strong> ~35 (of ~300 total)</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════ 2. CUI DATA FLOW ═══════════════════ -->
+<section id="cui-flow">
+  <div class="section-header">
+    <div class="section-num" style="background:var(--cyan);">2</div>
+    <h2>CUI Data Flow Architecture</h2>
+  </div>
+  <p class="section-desc">Complete lifecycle of CUI from government receipt through internal processing, controlled collaboration, and secure submission — all within the GCC G5 boundary.</p>
+
+  <!-- SVG FLOW DIAGRAM -->
+  <div class="flow-container">
+    <svg viewBox="0 0 1100 920" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:1100px;">
+      <defs>
+        <marker id="arrow" markerWidth="10" markerHeight="7" refX="10" refY="3.5" orient="auto"><polygon points="0 0, 10 3.5, 0 7" fill="#60a5fa"/></marker>
+        <marker id="arrow-g" markerWidth="10" markerHeight="7" refX="10" refY="3.5" orient="auto"><polygon points="0 0, 10 3.5, 0 7" fill="#34d399"/></marker>
+        <marker id="arrow-a" markerWidth="10" markerHeight="7" refX="10" refY="3.5" orient="auto"><polygon points="0 0, 10 3.5, 0 7" fill="#fbbf24"/></marker>
+        <linearGradient id="gBox" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#1e3a5f"/><stop offset="100%" stop-color="#0f2540"/></linearGradient>
+      </defs>
+
+      <!-- Title -->
+      <text x="550" y="30" text-anchor="middle" fill="#94a3b8" font-size="13" font-weight="600" letter-spacing="2">MVL GROUP — CUI DATA FLOW (M365 GCC G5)</text>
+
+      <!-- GOV SOURCE -->
+      <rect x="370" y="50" width="360" height="60" rx="10" fill="#1e40af" stroke="#3b82f6" stroke-width="1.5"/>
+      <text x="550" y="75" text-anchor="middle" fill="#fff" font-size="14" font-weight="700">&#x1F3DB; U.S. Government</text>
+      <text x="550" y="95" text-anchor="middle" fill="#93c5fd" font-size="11">DoD SAFE &bull; PIEE Portal &bull; Government Email</text>
+
+      <!-- Arrow down -->
+      <line x1="550" y1="112" x2="550" y2="145" stroke="#60a5fa" stroke-width="2" marker-end="url(#arrow)"/>
+
+      <!-- EXCHANGE ONLINE -->
+      <rect x="370" y="148" width="360" height="56" rx="10" fill="url(#gBox)" stroke="#3b82f6" stroke-width="1"/>
+      <text x="550" y="173" text-anchor="middle" fill="#fff" font-size="13" font-weight="700">&#x1F4E8; Exchange Online (GCC)</text>
+      <text x="550" y="192" text-anchor="middle" fill="#93c5fd" font-size="11">CUI Email Intake &bull; DLP Scanned &bull; Auto-Label Check</text>
+
+      <!-- Arrow down -->
+      <line x1="550" y1="206" x2="550" y2="239" stroke="#60a5fa" stroke-width="2" marker-end="url(#arrow)"/>
+
+      <!-- PRIMARY RECEIVER -->
+      <rect x="400" y="242" width="300" height="48" rx="10" fill="#1e3a5f" stroke="#60a5fa" stroke-width="1"/>
+      <text x="550" y="263" text-anchor="middle" fill="#fff" font-size="13" font-weight="600">&#x1F464; Primary Receiver (Executive)</text>
+      <text x="550" y="280" text-anchor="middle" fill="#93c5fd" font-size="10">Initial CUI Triage &amp; Classification</text>
+
+      <!-- Arrow down -->
+      <line x1="550" y1="292" x2="550" y2="325" stroke="#60a5fa" stroke-width="2" marker-end="url(#arrow)"/>
+
+      <!-- CUI SHAREPOINT -->
+      <rect x="340" y="328" width="420" height="64" rx="12" fill="#0f2540" stroke="#06b6d4" stroke-width="2"/>
+      <text x="550" y="354" text-anchor="middle" fill="#fff" font-size="14" font-weight="700">&#x1F4C1; CUI SharePoint Site Collection</text>
+      <text x="550" y="374" text-anchor="middle" fill="#67e8f9" font-size="11">Dedicated Library &bull; Versioning &bull; Retention &bull; Sensitivity Labels Applied</text>
+
+      <!-- BRANCH TO LIBRARIES -->
+      <line x1="430" y1="394" x2="180" y2="440" stroke="#34d399" stroke-width="1.5" marker-end="url(#arrow-g)"/>
+      <line x1="550" y1="394" x2="550" y2="440" stroke="#34d399" stroke-width="1.5" marker-end="url(#arrow-g)"/>
+      <line x1="670" y1="394" x2="920" y2="440" stroke="#34d399" stroke-width="1.5" marker-end="url(#arrow-g)"/>
+
+      <!-- PRE-AWARD -->
+      <rect x="60" y="443" width="240" height="52" rx="8" fill="#064e3b" stroke="#34d399" stroke-width="1"/>
+      <text x="180" y="465" text-anchor="middle" fill="#fff" font-size="12" font-weight="600">&#x1F4DD; Pre-Award Library</text>
+      <text x="180" y="482" text-anchor="middle" fill="#6ee7b7" font-size="10">Proposals &bull; Bid Docs &bull; RFP</text>
+
+      <!-- POST-AWARD -->
+      <rect x="430" y="443" width="240" height="52" rx="8" fill="#064e3b" stroke="#34d399" stroke-width="1"/>
+      <text x="550" y="465" text-anchor="middle" fill="#fff" font-size="12" font-weight="600">&#x1F4C4; Post-Award Library</text>
+      <text x="550" y="482" text-anchor="middle" fill="#6ee7b7" font-size="10">Contracts &bull; Deliverables &bull; COR</text>
+
+      <!-- FINANCE -->
+      <rect x="800" y="443" width="240" height="52" rx="8" fill="#064e3b" stroke="#34d399" stroke-width="1"/>
+      <text x="920" y="465" text-anchor="middle" fill="#fff" font-size="12" font-weight="600">&#x1F4B0; Finance Restricted Library</text>
+      <text x="920" y="482" text-anchor="middle" fill="#6ee7b7" font-size="10">Pricing &bull; Cost Data &bull; Invoices</text>
+
+      <!-- ARROWS TO GROUPS -->
+      <line x1="180" y1="497" x2="180" y2="540" stroke="#fbbf24" stroke-width="1.5" marker-end="url(#arrow-a)"/>
+      <line x1="550" y1="497" x2="550" y2="540" stroke="#fbbf24" stroke-width="1.5" marker-end="url(#arrow-a)"/>
+      <line x1="920" y1="497" x2="920" y2="540" stroke="#fbbf24" stroke-width="1.5" marker-end="url(#arrow-a)"/>
+
+      <!-- SECURITY GROUPS -->
+      <rect x="60" y="543" width="240" height="48" rx="8" fill="#78350f" stroke="#fbbf24" stroke-width="1"/>
+      <text x="180" y="563" text-anchor="middle" fill="#fff" font-size="12" font-weight="600">&#x1F465; CUI-Proposal Group</text>
+      <text x="180" y="580" text-anchor="middle" fill="#fde68a" font-size="10">Entra Security Group</text>
+
+      <rect x="430" y="543" width="240" height="48" rx="8" fill="#78350f" stroke="#fbbf24" stroke-width="1"/>
+      <text x="550" y="563" text-anchor="middle" fill="#fff" font-size="12" font-weight="600">&#x1F465; CUI-Exec / CUI-Projects</text>
+      <text x="550" y="580" text-anchor="middle" fill="#fde68a" font-size="10">Entra Security Groups</text>
+
+      <rect x="800" y="543" width="240" height="48" rx="8" fill="#78350f" stroke="#fbbf24" stroke-width="1"/>
+      <text x="920" y="563" text-anchor="middle" fill="#fff" font-size="12" font-weight="600">&#x1F465; CUI-Accounts Group</text>
+      <text x="920" y="580" text-anchor="middle" fill="#fde68a" font-size="10">Entra Security Group</text>
+
+      <!-- TEAMS COLLABORATION -->
+      <line x1="180" y1="593" x2="550" y2="640" stroke="#a78bfa" stroke-width="1.5" stroke-dasharray="6,3"/>
+      <line x1="550" y1="593" x2="550" y2="640" stroke="#a78bfa" stroke-width="1.5"/>
+      <line x1="920" y1="593" x2="550" y2="640" stroke="#a78bfa" stroke-width="1.5" stroke-dasharray="6,3"/>
+
+      <rect x="370" y="643" width="360" height="56" rx="10" fill="#312e81" stroke="#a78bfa" stroke-width="1.5"/>
+      <text x="550" y="667" text-anchor="middle" fill="#fff" font-size="13" font-weight="700">&#x1F4AC; Microsoft Teams (GCC)</text>
+      <text x="550" y="686" text-anchor="middle" fill="#c4b5fd" font-size="11">Private CUI Channels &bull; SharePoint-Backed &bull; DLP Enforced</text>
+
+      <!-- GUEST / SUBS -->
+      <line x1="550" y1="701" x2="550" y2="738" stroke="#f472b6" stroke-width="1.5" marker-end="url(#arrow)"/>
+
+      <rect x="370" y="740" width="360" height="50" rx="10" fill="#4c1d95" stroke="#c084fc" stroke-width="1"/>
+      <text x="550" y="762" text-anchor="middle" fill="#fff" font-size="12" font-weight="600">&#x1F310; Subcontractors (GCC B2B Guest Access)</text>
+      <text x="550" y="779" text-anchor="middle" fill="#d8b4fe" font-size="10">Conditional Access &bull; No Anonymous Links &bull; Download Blocked</text>
+
+      <!-- REDACTION FLOW -->
+      <rect x="60" y="640" width="260" height="80" rx="10" fill="#1e1b3a" stroke="#818cf8" stroke-width="1"/>
+      <text x="190" y="662" text-anchor="middle" fill="#fff" font-size="12" font-weight="600">&#x1F504; Post-Award Redaction Process</text>
+      <text x="190" y="682" text-anchor="middle" fill="#a5b4fc" font-size="10.5">Full Version &#x2192; CUI Label</text>
+      <text x="190" y="698" text-anchor="middle" fill="#a5b4fc" font-size="10.5">Redacted Version &#x2192; CUI-Redacted Label</text>
+      <text x="190" y="714" text-anchor="middle" fill="#818cf8" font-size="10">Role-based distribution via Entra groups</text>
+
+      <!-- SUBMISSION -->
+      <line x1="550" y1="792" x2="550" y2="830" stroke="#60a5fa" stroke-width="2" marker-end="url(#arrow)"/>
+
+      <rect x="370" y="833" width="360" height="56" rx="10" fill="#1e40af" stroke="#3b82f6" stroke-width="1.5"/>
+      <text x="550" y="856" text-anchor="middle" fill="#fff" font-size="13" font-weight="700">&#x1F4E4; Secure Submission</text>
+      <text x="550" y="874" text-anchor="middle" fill="#93c5fd" font-size="11">PIEE Portal &bull; DoD SAFE &bull; Government Email (TLS)</text>
+
+      <!-- PROTECTION BOUNDARY -->
+      <rect x="30" y="130" width="1040" height="690" rx="16" fill="none" stroke="#3b82f6" stroke-width="2" stroke-dasharray="8,4" opacity=".3"/>
+      <text x="80" y="155" fill="#60a5fa" font-size="11" font-weight="600" opacity=".6">CUI PROCESSING BOUNDARY — M365 GCC G5</text>
+    </svg>
+  </div>
+
+  <!-- PRE-AWARD / POST-AWARD DETAIL -->
+  <div class="grid-2" style="margin-top:20px;">
+    <div class="card">
+      <h3><span style="color:var(--cyan);">&#x25C9;</span> Pre-Award CUI Flow</h3>
+      <ol>
+        <li><strong>Government transmits</strong> RFP/RFI via Exchange Online GCC or PIEE portal</li>
+        <li><strong>Primary Receiver</strong> (Executive) triages and applies initial sensitivity label</li>
+        <li><strong>Stored</strong> in dedicated CUI SharePoint Pre-Award Library (versioning + retention on)</li>
+        <li><strong>Internal sharing</strong> via Teams (backed by SharePoint) — restricted to CUI-Proposal Entra group</li>
+        <li><strong>External sharing</strong> (subcontractors) via GCC B2B Guest Access only — DLP + label enforced, no anonymous links, downloads blocked if required</li>
+        <li><strong>Offer submission</strong> via PIEE or secure government email channel</li>
+      </ol>
+    </div>
+    <div class="card">
+      <h3><span style="color:var(--green);">&#x25C9;</span> Post-Award CUI Flow</h3>
+      <ol>
+        <li><strong>Government issues</strong> contract/mod via Exchange Online GCC</li>
+        <li><strong>Executive Review</strong> + digital e-signature</li>
+        <li><strong>Stored</strong> in CUI Post-Award Library with full audit trail</li>
+        <li><strong>Automated redaction process</strong> creates two versions:
+          <ul>
+            <li><strong>Full Version</strong> — labeled <code>CUI</code>, restricted to CUI-Exec / CUI-Projects</li>
+            <li><strong>Redacted Version</strong> — labeled <code>CUI-Redacted</code>, shared with Site Team / Accounts</li>
+          </ul>
+        </li>
+        <li><strong>Access governed</strong> by Entra role-based security groups</li>
+        <li><strong>Financial data</strong> routed to Finance Restricted Library (CUI-Accounts group only)</li>
+      </ol>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════ 3. SECURITY LAYERS ═══════════════════ -->
+<section id="security-layers">
+  <div class="section-header">
+    <div class="section-num" style="background:var(--green);">3</div>
+    <h2>Security Architecture Layers (Zero Trust)</h2>
+  </div>
+  <p class="section-desc">Four concentric defense layers protect CUI from identity through endpoint, data, and collaboration — implementing Zero Trust principles throughout.</p>
+
+  <div class="layer-block" style="border-color:var(--accent-blue);">
+    <h3>&#x1F511; Layer 1 — Identity (Microsoft Entra ID)</h3>
+    <div class="grid-2" style="margin-top:10px;">
+      <div>
+        <h4>Controls Enabled</h4>
+        <ul>
+          <li>MFA enforced for <strong>all</strong> CUI users (hardware token for admins)</li>
+          <li>Conditional Access policies: device compliance, location, risk-based</li>
+          <li>No legacy authentication protocols</li>
+          <li>Privileged Identity Management (PIM) — time-bound admin access</li>
+          <li>Microsoft Entra ID Protection — risk-based sign-in analysis</li>
+        </ul>
+      </div>
+      <div>
+        <h4>Named CUI Security Groups</h4>
+        <table class="styled-table">
+          <tr><th>Group Name</th><th>Purpose</th></tr>
+          <tr><td><code>CUI-Proposal</code></td><td>Pre-award bid/proposal team</td></tr>
+          <tr><td><code>CUI-Exec</code></td><td>Executive leadership / signatories</td></tr>
+          <tr><td><code>CUI-Accounts</code></td><td>Finance &amp; accounting staff</td></tr>
+          <tr><td><code>CUI-Projects</code></td><td>Active project delivery team</td></tr>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <div class="layer-block" style="border-color:var(--purple);">
+    <h3>&#x1F4BB; Layer 2 — Endpoint Protection (Intune + Defender XDR)</h3>
+    <div class="grid-2" style="margin-top:10px;">
+      <div>
+        <ul>
+          <li>Intune device compliance <strong>mandatory</strong> before CUI access</li>
+          <li>BitLocker full-disk encryption on all endpoints</li>
+          <li>Defender for Endpoint EDR — continuous monitoring</li>
+          <li>USB write restrictions enforced via Intune policy</li>
+          <li><strong>No personal device access</strong> to CUI resources</li>
+        </ul>
+      </div>
+      <div>
+        <ul>
+          <li>Windows Security Baseline via Microsoft SCT</li>
+          <li>Application whitelisting active</li>
+          <li>Windows Hello for Business (passwordless)</li>
+          <li>Automated patch management via Windows Update for Business</li>
+          <li>Remote wipe capability for lost/stolen devices</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="layer-block" style="border-color:var(--amber);">
+    <h3>&#x1F6E1; Layer 3 — Data Protection (Microsoft Purview)</h3>
+    <div class="grid-2" style="margin-top:10px;">
+      <div>
+        <h4>Sensitivity Labels</h4>
+        <ul>
+          <li><span class="chip chip-red">CUI</span> — Full encryption, watermark, restricted access</li>
+          <li><span class="chip chip-amber">CUI-Redacted</span> — Redacted content, wider internal sharing</li>
+          <li><span class="chip chip-purple">Confidential</span> — Business-sensitive, not federal CUI</li>
+          <li><span class="chip chip-blue">Internal</span> — General internal use</li>
+          <li><span class="chip chip-green">Public</span> — No restrictions</li>
+        </ul>
+      </div>
+      <div>
+        <h4>DLP Policies Active</h4>
+        <ul>
+          <li>Block CUI-labeled content to non-approved domains</li>
+          <li>Alert on any external sharing of CUI content</li>
+          <li>Block downloads to unmanaged devices</li>
+          <li>Prevent copy/paste of CUI to non-approved apps</li>
+          <li>Unified Audit Log — all CUI actions recorded</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="layer-block" style="border-color:var(--cyan);">
+    <h3>&#x1F4AC; Layer 4 — Collaboration Security (Teams + SharePoint)</h3>
+    <ul>
+      <li>Dedicated CUI SharePoint Site Collection — logically isolated within GCC tenant</li>
+      <li><strong>Private Teams only</strong> — no public channels for CUI discussion</li>
+      <li>Guest access controlled via GCC B2B — conditional access enforced</li>
+      <li><strong>No public/anonymous sharing links</strong> permitted</li>
+      <li>Library-level permission separation (Pre-Award, Post-Award, Redacted, Finance)</li>
+      <li>Retention policies aligned with DoD/federal requirements</li>
+    </ul>
+  </div>
+</section>
+
+<!-- ═══════════════════ 4. GROUPS & USERS ═══════════════════ -->
+<section id="groups">
+  <div class="section-header">
+    <div class="section-num" style="background:var(--amber);">4</div>
+    <h2>CUI User Population &amp; Entra Security Groups</h2>
+  </div>
+  <p class="section-desc">Only ~35 users out of ~300 total are within the CUI processing boundary. All CUI users are licensed with GCC G5, device-managed via Intune, under Conditional Access, and assigned to specific Entra security groups.</p>
+
+  <table class="styled-table">
+    <thead>
+      <tr>
+        <th>Security Group</th>
+        <th>Members</th>
+        <th>CUI Libraries Accessed</th>
+        <th>Key Permissions</th>
+        <th>Conditional Access</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>CUI-Exec</strong></td>
+        <td>C-Suite, VPs (~5)</td>
+        <td>All CUI Libraries</td>
+        <td>Full Read/Write, Approval authority</td>
+        <td>MFA + Compliant Device + US Location</td>
+      </tr>
+      <tr>
+        <td><strong>CUI-Proposal</strong></td>
+        <td>BD &amp; Proposal team (~8-10)</td>
+        <td>Pre-Award Library</td>
+        <td>Read/Write on proposals, Read on templates</td>
+        <td>MFA + Compliant Device</td>
+      </tr>
+      <tr>
+        <td><strong>CUI-Projects</strong></td>
+        <td>Project Managers, Engineers (~12-15)</td>
+        <td>Post-Award Library, Redacted Library</td>
+        <td>Read/Write deliverables, Read contracts</td>
+        <td>MFA + Compliant Device</td>
+      </tr>
+      <tr>
+        <td><strong>CUI-Accounts</strong></td>
+        <td>Finance &amp; Accounting (~5)</td>
+        <td>Finance Restricted Library, Redacted Library</td>
+        <td>Read/Write financial CUI, Read redacted</td>
+        <td>MFA + Compliant Device</td>
+      </tr>
+      <tr>
+        <td><strong>CUI-Guests</strong></td>
+        <td>Subcontractors (variable)</td>
+        <td>Designated shared folders only</td>
+        <td>Read-only (no download unless approved)</td>
+        <td>MFA + Terms of Use + Session timeout</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="alert alert-info">
+    <span class="alert-icon">&#x2139;</span>
+    <div><strong>Auditor Clarity:</strong> Not the entire 300-user tenant processes CUI. Only the defined subset within named Entra security groups has access. This is formally documented in the System Security Plan (SSP) and provides clear CUI boundary scoping for CMMC Level 2 assessment.</div>
+  </div>
+</section>
+
+<!-- ═══════════════════ 5. SENSITIVITY LABELS ═══════════════════ -->
+<section id="labels">
+  <div class="section-header">
+    <div class="section-num" style="background:var(--red);">5</div>
+    <h2>Microsoft Purview Sensitivity Labels — Taxonomy &amp; Configuration</h2>
+  </div>
+  <p class="section-desc">MVL Group's four-tier data classification maps to Microsoft Purview sensitivity labels. Labels drive encryption, access restriction, content marking, and DLP policy enforcement.</p>
+
+  <table class="styled-table">
+    <thead>
+      <tr>
+        <th>Label</th>
+        <th>Classification</th>
+        <th>Encryption</th>
+        <th>Content Marking</th>
+        <th>Access Scope</th>
+        <th>Auto-Label</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="chip chip-red">CUI</span></td>
+        <td>Controlled Unclassified Information</td>
+        <td>AES-256, Rights Management</td>
+        <td>Header: "CUI" &bull; Footer: "Controlled — Do Not Distribute" &bull; Watermark</td>
+        <td>CUI Security Groups only</td>
+        <td>Yes (service-side + client-side)</td>
+      </tr>
+      <tr>
+        <td><span class="chip chip-amber">CUI-Redacted</span></td>
+        <td>Redacted CUI (sanitized)</td>
+        <td>AES-256, restricted</td>
+        <td>Header: "CUI — REDACTED" &bull; Footer with handling notice</td>
+        <td>Broader internal (project teams)</td>
+        <td>Manual only (post-redaction)</td>
+      </tr>
+      <tr>
+        <td><span class="chip chip-purple">Confidential</span></td>
+        <td>Business-sensitive (non-CUI)</td>
+        <td>AES-256</td>
+        <td>Header: "Confidential" &bull; Footer</td>
+        <td>All MVL employees</td>
+        <td>Yes (keyword-based)</td>
+      </tr>
+      <tr>
+        <td><span class="chip chip-blue">Internal</span></td>
+        <td>General internal use</td>
+        <td>Optional</td>
+        <td>Footer: "Internal Use Only"</td>
+        <td>All MVL employees</td>
+        <td>Default label for new docs</td>
+      </tr>
+      <tr>
+        <td><span class="chip chip-green">Public</span></td>
+        <td>Approved for public release</td>
+        <td>None</td>
+        <td>None</td>
+        <td>Unrestricted</td>
+        <td>No</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="grid-2" style="margin-top:20px;">
+    <div class="card">
+      <h3>&#x1F3F7; Label Hierarchy &amp; Priority</h3>
+      <div class="code-block">
+<span class="comment">/* Sensitivity label priority (highest → lowest) */</span>
+<span class="highlight">5.</span> <span class="keyword">CUI</span>           <span class="comment">→ Highest protection</span>
+<span class="highlight">4.</span> <span class="keyword">CUI-Redacted</span>  <span class="comment">→ Sanitized CUI content</span>
+<span class="highlight">3.</span> <span class="keyword">Confidential</span>  <span class="comment">→ Business-sensitive</span>
+<span class="highlight">2.</span> <span class="keyword">Internal</span>      <span class="comment">→ Standard internal</span>
+<span class="highlight">1.</span> <span class="keyword">Public</span>        <span class="comment">→ No restrictions</span>
+
+<span class="comment">/* Label inheritance rule:
+   Email adopts the HIGHEST label of any
+   attachment — enforced automatically */</span>
+      </div>
+    </div>
+    <div class="card">
+      <h3>&#x2699; Protection Settings per Label</h3>
+      <h4>CUI Label Protections</h4>
+      <ul>
+        <li><strong>Encryption:</strong> Azure RMS — only CUI group members can decrypt</li>
+        <li><strong>Permissions:</strong> View, Edit (no Print, no Forward for email)</li>
+        <li><strong>Offline access:</strong> 7 days maximum</li>
+        <li><strong>Content marking:</strong> Header + Footer + Diagonal Watermark</li>
+        <li><strong>Mandatory justification</strong> required to downgrade label</li>
+      </ul>
+      <h4>Container Label Protections (Sites/Teams)</h4>
+      <ul>
+        <li>Privacy: <strong>Private</strong> only</li>
+        <li>External sharing: <strong>Disabled</strong> (except approved B2B guests)</li>
+        <li>Unmanaged device access: <strong>Blocked</strong></li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════ 6. DLP POLICIES ═══════════════════ -->
+<section id="dlp">
+  <div class="section-header">
+    <div class="section-num" style="background:var(--orange);">6</div>
+    <h2>Data Loss Prevention (DLP) Policies — Complete Guide</h2>
+  </div>
+  <p class="section-desc">DLP policies work alongside sensitivity labels to prevent unauthorized exfiltration of CUI across Exchange Online, SharePoint, OneDrive, Teams, and endpoints.</p>
+
+  <table class="styled-table">
+    <thead>
+      <tr>
+        <th>DLP Policy Name</th>
+        <th>Scope</th>
+        <th>Condition</th>
+        <th>Action</th>
+        <th>Alert</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>CUI External Email Block</strong></td>
+        <td>Exchange Online</td>
+        <td>Sensitivity label = CUI AND recipient domain &#x2260; approved list</td>
+        <td>Block send + notify user</td>
+        <td>High — IT Security + Sender</td>
+      </tr>
+      <tr>
+        <td><strong>CUI External Share Block</strong></td>
+        <td>SharePoint / OneDrive</td>
+        <td>Sensitivity label = CUI AND sharing outside org</td>
+        <td>Block sharing + override with justification</td>
+        <td>High — IT Security</td>
+      </tr>
+      <tr>
+        <td><strong>CUI Unmanaged Device Block</strong></td>
+        <td>SharePoint / OneDrive</td>
+        <td>Sensitivity label = CUI AND device not Intune-compliant</td>
+        <td>Block download, allow view only</td>
+        <td>Medium — IT Security</td>
+      </tr>
+      <tr>
+        <td><strong>CUI Teams Chat Protection</strong></td>
+        <td>Teams</td>
+        <td>CUI keywords / SIT patterns in chat/files</td>
+        <td>Block external recipients, warn internal</td>
+        <td>Medium — IT Security</td>
+      </tr>
+      <tr>
+        <td><strong>CUI Endpoint Protection</strong></td>
+        <td>Endpoint DLP</td>
+        <td>CUI-labeled files copied to USB/cloud/print</td>
+        <td>Block USB copy, audit cloud upload, restrict print</td>
+        <td>High — IT Security + Manager</td>
+      </tr>
+      <tr>
+        <td><strong>CUI SIT Detection</strong></td>
+        <td>Exchange + SharePoint + OneDrive</td>
+        <td>Sensitive Info Types: DFARS clause numbers, contract numbers, CUI markings</td>
+        <td>Auto-apply CUI label suggestion + block if unlabeled external</td>
+        <td>Medium — Compliance</td>
+      </tr>
+      <tr>
+        <td><strong>Unlabeled Content Restriction</strong></td>
+        <td>Exchange + SharePoint</td>
+        <td>No sensitivity label applied AND external recipient</td>
+        <td>Block send/share + prompt to label</td>
+        <td>Low — User notification</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="alert alert-warning">
+    <span class="alert-icon">&#x26A0;</span>
+    <div><strong>CUI Spillage Prevention:</strong> When CUI touches locations not provisioned with adequate protections, that constitutes <em>spillage</em>. The DLP policies above form a defensive perimeter that prevents CUI from leaving the GCC boundary or reaching unauthorized users. All DLP violations are logged in Microsoft Sentinel for forensic analysis and incident response.</div>
+  </div>
+
+  <div class="card" style="margin-top:20px;">
+    <h3>&#x1F4CB; DLP Policy Configuration Steps for IT</h3>
+    <div class="step">
+      <div class="step-num" style="background:var(--accent-blue);">1</div>
+      <div class="step-content">
+        <h4>Navigate to Microsoft Purview Compliance Portal</h4>
+        <p>Go to <code>compliance.microsoft.com</code> (or <code>compliance.microsoft.us</code> for GCC) &#x2192; Data Loss Prevention &#x2192; Policies &#x2192; Create Policy</p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num" style="background:var(--accent-blue);">2</div>
+      <div class="step-content">
+        <h4>Select Template or Custom Policy</h4>
+        <p>Choose "Custom policy" for CUI-specific rules. Name it clearly (e.g., "MVL-DLP-CUI-External-Email-Block").</p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num" style="background:var(--accent-blue);">3</div>
+      <div class="step-content">
+        <h4>Define Locations</h4>
+        <p>Select Exchange email, SharePoint sites (scope to CUI Site Collection), OneDrive accounts (CUI group members), Teams chat/channels, and Devices (Endpoint DLP).</p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num" style="background:var(--accent-blue);">4</div>
+      <div class="step-content">
+        <h4>Configure Conditions</h4>
+        <p>Add condition: "Content contains sensitivity label = CUI" AND "Content is shared outside organization" or "Recipient domain NOT IN approved list." Add Sensitive Info Types for CUI keywords, DFARS clause numbers, and contract identifiers.</p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num" style="background:var(--accent-blue);">5</div>
+      <div class="step-content">
+        <h4>Set Actions &amp; Notifications</h4>
+        <p>Action: Block content sharing. Notifications: Policy tip to user explaining why blocked. Incident report to IT Security distribution group. Override: Require business justification (for approved exceptions only).</p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num" style="background:var(--accent-blue);">6</div>
+      <div class="step-content">
+        <h4>Test in Simulation Mode First</h4>
+        <p><strong>Always</strong> run new DLP policies in simulation mode (Test mode) for 2-4 weeks. Review false positives. Fine-tune conditions. Then switch to enforcement mode.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════ 7. AUTO-LABELING ═══════════════════ -->
+<section id="auto-label">
+  <div class="section-header">
+    <div class="section-num" style="background:var(--purple);">7</div>
+    <h2>Automatic Sensitivity Labeling — Configuration Guide</h2>
+  </div>
+  <p class="section-desc">Auto-labeling uses two complementary methods — client-side (within Office apps) and service-side (background processing) — to ensure CUI content is always labeled correctly, even when users forget.</p>
+
+  <div class="grid-2">
+    <div class="card">
+      <h3>&#x1F4BB; Client-Side Auto-Labeling</h3>
+      <p>Configured within the sensitivity label itself. Triggers in real-time as users create or edit documents in Word, Excel, PowerPoint, and Outlook.</p>
+      <h4>How to Configure</h4>
+      <ol>
+        <li>Go to Purview &#x2192; Information Protection &#x2192; Labels</li>
+        <li>Edit the <strong>CUI</strong> label &#x2192; Auto-labeling for files and emails</li>
+        <li>Add conditions:
+          <ul>
+            <li>Sensitive Info Types: Custom SITs for CUI identifiers</li>
+            <li>Keywords: "CONTROLLED UNCLASSIFIED", "CUI//", "DISTRIBUTION STATEMENT", "DFARS 252.204"</li>
+          </ul>
+        </li>
+        <li>Set action: <strong>Recommend</strong> label (users see a banner prompting them to apply) or <strong>Auto-apply</strong> (no user interaction needed)</li>
+        <li>Add message: "This document appears to contain CUI. The CUI sensitivity label has been recommended."</li>
+      </ol>
+      <div class="alert alert-info" style="margin-top:12px;">
+        <span class="alert-icon">&#x1F4A1;</span>
+        <div><strong>Best Practice:</strong> Start with "Recommend" mode for user awareness, then shift to "Auto-apply" once users are trained and false positives are tuned.</div>
+      </div>
+    </div>
+    <div class="card">
+      <h3>&#x2601; Service-Side Auto-Labeling</h3>
+      <p>Configured as a standalone policy in Purview. Runs asynchronously in the background across SharePoint, OneDrive, and Exchange. Can process existing at-rest content.</p>
+      <h4>How to Configure</h4>
+      <ol>
+        <li>Go to Purview &#x2192; Information Protection &#x2192; Auto-labeling</li>
+        <li>Click <strong>+ Create auto-labeling policy</strong></li>
+        <li>Name: "MVL-AutoLabel-CUI-Detection"</li>
+        <li>Select locations: CUI SharePoint Site Collection, CUI users' OneDrive, Exchange Online</li>
+        <li>Define rules:
+          <ul>
+            <li>Content matches: Custom SITs + keyword lists</li>
+            <li>Document properties: metadata containing CUI markers</li>
+            <li>Sender domain = .mil or .gov (for emails)</li>
+          </ul>
+        </li>
+        <li>Label to apply: <strong>CUI</strong></li>
+        <li><strong>Run in Simulation mode first</strong> — review matched items</li>
+        <li>After validation, switch to <strong>Enforce mode</strong></li>
+      </ol>
+      <div class="alert alert-success" style="margin-top:12px;">
+        <span class="alert-icon">&#x2705;</span>
+        <div><strong>Advantage:</strong> Service-side can scan PDFs, images (with OCR), and Exchange attachments. No dependency on Office app versions. Ideal for catching CUI in legacy or bulk-imported content.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card" style="margin-top:20px;">
+    <h3>&#x1F50D; Custom Sensitive Information Types (SITs) for CUI Detection</h3>
+    <p>Create custom SITs in Purview to detect CUI-specific patterns unique to MVL Group's contracts:</p>
+    <table class="styled-table">
+      <thead>
+        <tr><th>SIT Name</th><th>Pattern / Keywords</th><th>Confidence</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>CUI Marking Indicator</td><td>Regex: <code>CUI\/\/(SP-|[A-Z]{2,})</code> &bull; Keywords: "CONTROLLED UNCLASSIFIED INFORMATION", "CUI BASIC", "CUI SPECIFIED"</td><td>High (85%)</td></tr>
+        <tr><td>DFARS Clause Reference</td><td>Regex: <code>DFARS\s*252\.204-70\d{2}</code> &bull; Keywords: "252.204-7012", "7019", "7020", "7021"</td><td>High (90%)</td></tr>
+        <tr><td>Distribution Statement</td><td>Keywords: "DISTRIBUTION STATEMENT B", "DISTRIBUTION STATEMENT C", "DISTRIBUTION STATEMENT D", "DISTRIBUTION STATEMENT E", "DISTRIBUTION STATEMENT F"</td><td>Medium (75%)</td></tr>
+        <tr><td>DoD Contract Number</td><td>Regex: <code>[A-Z]\d{5}-\d{2}-[A-Z]-\d{4}</code> (standard DoD contract format)</td><td>Medium (70%)</td></tr>
+        <tr><td>Government Source Indicator</td><td>Sender domain: <code>*.mil</code>, <code>*.gov</code> &bull; Keywords: "FOR OFFICIAL USE ONLY", "FOUO"</td><td>Medium (65%)</td></tr>
+        <tr><td>Export Control Indicator</td><td>Keywords: "ITAR", "EAR", "22 CFR 120", "15 CFR 730", "USML", "CCL"</td><td>High (85%)</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- ═══════════════════ 8. MANUAL LABELING ═══════════════════ -->
+<section id="manual-label">
+  <div class="section-header">
+    <div class="section-num" style="background:var(--light-blue);">8</div>
+    <h2>Manual Sensitivity Labeling — User Procedures</h2>
+  </div>
+  <p class="section-desc">All CUI users must understand how to manually apply, verify, and manage sensitivity labels. Mandatory labeling is enforced — no document or email can be saved/sent without a label.</p>
+
+  <div class="grid-2">
+    <div class="card">
+      <h3>&#x1F4C4; Labeling in Office Desktop Apps</h3>
+      <ol>
+        <li>Open document in Word, Excel, or PowerPoint</li>
+        <li>Click the <strong>Sensitivity</strong> button in the ribbon (Home tab)</li>
+        <li>Select the appropriate label:
+          <ul>
+            <li><span class="chip chip-red">CUI</span> for any controlled unclassified content</li>
+            <li><span class="chip chip-amber">CUI-Redacted</span> for sanitized versions</li>
+            <li><span class="chip chip-purple">Confidential</span> for business-sensitive (non-CUI)</li>
+          </ul>
+        </li>
+        <li>If downgrading a label, you <strong>must provide justification</strong></li>
+        <li>Labels persist when the document is shared or moved</li>
+      </ol>
+    </div>
+    <div class="card">
+      <h3>&#x1F4E7; Labeling in Outlook</h3>
+      <ol>
+        <li>Compose new email or reply</li>
+        <li>Click <strong>Sensitivity</strong> in the message ribbon</li>
+        <li>Select the label matching the content sensitivity</li>
+        <li><strong>Attachment inheritance:</strong> If you attach a CUI-labeled document, the email automatically inherits the CUI label</li>
+        <li>DLP policy tip will appear if sending CUI to external recipients not on the approved domain list</li>
+      </ol>
+    </div>
+  </div>
+
+  <div class="card" style="margin-top:16px;">
+    <h3>&#x1F310; Labeling in SharePoint Online / Teams</h3>
+    <ul>
+      <li><strong>Uploading:</strong> When uploading files to CUI SharePoint libraries, the library's default label applies automatically. Verify the label is correct in the file properties panel.</li>
+      <li><strong>Creating:</strong> New documents created in CUI libraries inherit the library's sensitivity label.</li>
+      <li><strong>Teams files:</strong> Files shared in CUI Teams channels are stored in the associated SharePoint library and follow the same labeling rules.</li>
+      <li><strong>Bulk labeling:</strong> IT admins can use SharePoint Bulk Label tool or PowerShell to apply labels to existing unlabeled content in CUI libraries.</li>
+    </ul>
+  </div>
+</section>
+
+<!-- ═══════════════════ 9. USER GUIDANCE MESSAGES ═══════════════════ -->
+<section id="user-guidance">
+  <div class="section-header">
+    <div class="section-num" style="background:#ec4899;">9</div>
+    <h2>User Guidance &amp; Policy Tip Messages</h2>
+  </div>
+  <p class="section-desc">These are the notification messages users will see when DLP policies and labeling rules are triggered. Each message educates users and guides correct behavior.</p>
+
+  <div class="msg-box">
+    <div class="msg-title"><span style="color:var(--red);">&#x1F6D1;</span> DLP Block — CUI External Email</div>
+    <div class="msg-body">
+      <strong>Policy Tip:</strong> "This email contains content labeled as <strong>CUI (Controlled Unclassified Information)</strong>. It cannot be sent to external recipients outside the approved domain list. If you believe this recipient should be authorized, contact your IT Security Team for an exception request. Recipient must have a valid need-to-know and approved sharing agreement."
+    </div>
+  </div>
+
+  <div class="msg-box">
+    <div class="msg-title"><span style="color:var(--amber);">&#x26A0;</span> DLP Warning — CUI External Share Attempt</div>
+    <div class="msg-body">
+      <strong>Policy Tip:</strong> "You are attempting to share a CUI-labeled file externally from SharePoint/OneDrive. External sharing of CUI requires business justification and is limited to approved GCC B2B guest accounts only. Please provide a written justification if you wish to proceed, or contact your manager to arrange approved guest access."
+    </div>
+  </div>
+
+  <div class="msg-box">
+    <div class="msg-title"><span style="color:var(--accent-blue);">&#x1F4A1;</span> Auto-Label Recommendation</div>
+    <div class="msg-body">
+      <strong>Banner Message:</strong> "This document appears to contain Controlled Unclassified Information (CUI). We recommend applying the <strong>CUI</strong> sensitivity label. Click <strong>[Apply CUI Label]</strong> to protect this document, or <strong>[Dismiss]</strong> if you believe this is a false positive. All CUI must be properly labeled per MVL Group CUI Protection Policy."
+    </div>
+  </div>
+
+  <div class="msg-box">
+    <div class="msg-title"><span style="color:var(--orange);">&#x1F50F;</span> Mandatory Label Prompt</div>
+    <div class="msg-body">
+      <strong>Dialog:</strong> "A sensitivity label is required before saving or sending. Please select the appropriate classification for this content: CUI, CUI-Redacted, Confidential, Internal, or Public. If unsure, consult the MVL Data Classification Guide or contact IT Security. All business content must be labeled."
+    </div>
+  </div>
+
+  <div class="msg-box">
+    <div class="msg-title"><span style="color:var(--red);">&#x1F6AB;</span> Endpoint DLP — USB Copy Block</div>
+    <div class="msg-body">
+      <strong>Notification:</strong> "Copying CUI-labeled files to removable USB storage is not permitted per MVL Group security policy. CUI data must remain within the M365 GCC G5 environment and Intune-managed endpoints. If you need to transfer this file, use the approved secure file sharing method in SharePoint."
+    </div>
+  </div>
+
+  <div class="msg-box">
+    <div class="msg-title"><span style="color:var(--purple);">&#x1F504;</span> Label Downgrade Justification</div>
+    <div class="msg-body">
+      <strong>Dialog:</strong> "You are removing or downgrading a CUI sensitivity label. This action requires a business justification. Please select a reason: (1) Content has been redacted/sanitized, (2) CUI data has been removed from document, (3) Incorrect label was applied, (4) Other — please specify. Your justification will be logged for audit purposes."
+    </div>
+  </div>
+
+  <div class="msg-box">
+    <div class="msg-title"><span style="color:var(--cyan);">&#x1F465;</span> Guest Access Reminder</div>
+    <div class="msg-body">
+      <strong>Policy Tip (Teams):</strong> "This Teams channel includes external guest users. Remember: Do not share CUI-labeled files directly in chat. Use the designated Shared Folder in the CUI SharePoint library. All guest access is monitored and logged. Guests have read-only access unless explicitly approved by CUI Program Manager."
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════ 10. IT ADMIN GUIDE ═══════════════════ -->
+<section id="it-guide">
+  <div class="section-header">
+    <div class="section-num" style="background:var(--dark-blue);">10</div>
+    <h2>IT Administrator — Configuration Procedures</h2>
+  </div>
+  <p class="section-desc">Step-by-step procedures for IT administrators to configure and maintain the CUI protection framework across M365 GCC G5.</p>
+
+  <details>
+    <summary>&#x1F511; Entra ID — CUI Security Groups Setup</summary>
+    <div class="detail-body">
+      <ol>
+        <li>Navigate to <strong>Entra Admin Center</strong> &#x2192; Groups &#x2192; All Groups &#x2192; New Group</li>
+        <li>Group type: <strong>Security</strong></li>
+        <li>Create each group: <code>CUI-Exec</code>, <code>CUI-Proposal</code>, <code>CUI-Projects</code>, <code>CUI-Accounts</code></li>
+        <li>Add members per the approved CUI user list (HR/Manager-approved only)</li>
+        <li>Configure <strong>Group owners</strong> = IT Security Team + respective department manager</li>
+        <li>Enable <strong>Access Reviews</strong>: Quarterly review cycle, auto-remove if not re-certified</li>
+        <li>Document group membership in the SSP Appendix</li>
+      </ol>
+    </div>
+  </details>
+
+  <details>
+    <summary>&#x1F6E1; Conditional Access — CUI Policy Configuration</summary>
+    <div class="detail-body">
+      <ol>
+        <li>Navigate to <strong>Entra Admin Center</strong> &#x2192; Protection &#x2192; Conditional Access &#x2192; New Policy</li>
+        <li>Name: "MVL-CA-CUI-Access-Control"</li>
+        <li><strong>Users:</strong> Include groups: CUI-Exec, CUI-Proposal, CUI-Projects, CUI-Accounts</li>
+        <li><strong>Target resources:</strong> CUI SharePoint Site Collection, CUI Teams, Exchange Online (CUI mailboxes)</li>
+        <li><strong>Conditions:</strong>
+          <ul>
+            <li>Device platforms: Windows, iOS (managed only)</li>
+            <li>Locations: Named locations (US-only for executives)</li>
+            <li>Client apps: Browser + Modern auth only (block legacy)</li>
+            <li>Sign-in risk: Block High, require MFA for Medium</li>
+          </ul>
+        </li>
+        <li><strong>Grant:</strong> Require MFA + Require compliant device + Require approved client app</li>
+        <li><strong>Session:</strong> Sign-in frequency 8 hours, persistent browser disabled</li>
+        <li>Test in <strong>Report-only mode</strong> for 2 weeks, then enforce</li>
+      </ol>
+    </div>
+  </details>
+
+  <details>
+    <summary>&#x1F3F7; Sensitivity Label — Creation Steps</summary>
+    <div class="detail-body">
+      <ol>
+        <li>Go to <strong>Microsoft Purview Portal</strong> &#x2192; Information Protection &#x2192; Labels &#x2192; Create a label</li>
+        <li><strong>Name:</strong> CUI &nbsp; <strong>Display name:</strong> CUI - Controlled Unclassified Information</li>
+        <li><strong>Description for users:</strong> "Apply this label to documents and emails containing Controlled Unclassified Information received from or created for federal government contracts."</li>
+        <li><strong>Scope:</strong> Files, Emails, Meetings, Sites/Groups</li>
+        <li><strong>Encryption:</strong> Apply encryption &#x2192; Assign permissions now &#x2192; Add CUI security groups with Co-Author permissions. Set content expiration: Never. Allow offline access: 7 days.</li>
+        <li><strong>Content marking:</strong> Enable Header ("CUI"), Footer ("Controlled — Do Not Distribute Outside Authorized CUI Holders"), Watermark ("CUI")</li>
+        <li><strong>Auto-labeling:</strong> Enable &#x2192; Add custom SITs and keyword conditions</li>
+        <li><strong>Groups &amp; Sites:</strong> Privacy = Private, External sharing = Off, Unmanaged devices = Block</li>
+        <li>Set <strong>label priority</strong> = 5 (highest)</li>
+      </ol>
+    </div>
+  </details>
+
+  <details>
+    <summary>&#x1F4E2; Label Publishing Policy</summary>
+    <div class="detail-body">
+      <ol>
+        <li>Go to <strong>Purview</strong> &#x2192; Information Protection &#x2192; Label Policies &#x2192; Publish label</li>
+        <li>Select all labels: Public, Internal, Confidential, CUI-Redacted, CUI</li>
+        <li><strong>Publish to:</strong> All CUI security groups (CUI-Exec, CUI-Proposal, CUI-Projects, CUI-Accounts)</li>
+        <li><strong>Policy settings:</strong>
+          <ul>
+            <li>&#x2705; Users must provide justification to remove or lower a label</li>
+            <li>&#x2705; Require users to apply a label to their emails and documents</li>
+            <li>Default label for documents: <strong>Internal</strong></li>
+            <li>Default label for emails: <strong>None</strong> (force manual selection)</li>
+          </ul>
+        </li>
+        <li>Name: "MVL-CUI-Label-Policy" &#x2192; Submit</li>
+        <li><strong>Note:</strong> Allow up to 24 hours for policy propagation to all users</li>
+      </ol>
+    </div>
+  </details>
+
+  <details>
+    <summary>&#x1F4C1; CUI SharePoint Site Collection Setup</summary>
+    <div class="detail-body">
+      <ol>
+        <li>Create a new <strong>SharePoint Site Collection</strong> (Team site, no M365 group) named "MVL-CUI-Repository"</li>
+        <li>Apply the <strong>CUI container sensitivity label</strong> to the site</li>
+        <li>Create document libraries:
+          <ul>
+            <li><strong>Pre-Award Library</strong> — Permissions: CUI-Exec + CUI-Proposal</li>
+            <li><strong>Post-Award Library</strong> — Permissions: CUI-Exec + CUI-Projects</li>
+            <li><strong>Redacted Library</strong> — Permissions: CUI-Projects + CUI-Accounts (read)</li>
+            <li><strong>Finance Restricted Library</strong> — Permissions: CUI-Exec + CUI-Accounts</li>
+          </ul>
+        </li>
+        <li>Enable <strong>versioning</strong> (major versions, keep 50 versions)</li>
+        <li>Apply <strong>retention policy</strong>: Retain 7 years, then review for disposition</li>
+        <li>Set <strong>default sensitivity label</strong> for each library = CUI</li>
+        <li>Disable <strong>external sharing</strong> at the site level</li>
+        <li>Block access from <strong>unmanaged devices</strong></li>
+      </ol>
+    </div>
+  </details>
+
+  <details>
+    <summary>&#x1F4CA; Microsoft Sentinel — CUI Monitoring Alerts</summary>
+    <div class="detail-body">
+      <ol>
+        <li>Enable <strong>Microsoft 365 data connector</strong> in Sentinel</li>
+        <li>Create analytics rules for:
+          <ul>
+            <li><strong>CUI label downgrade</strong> — Alert on any CUI → lower label change</li>
+            <li><strong>CUI access from new location</strong> — Alert on sign-in from unusual geography</li>
+            <li><strong>Mass CUI file access</strong> — Alert when user accesses &gt; 50 CUI files in 1 hour</li>
+            <li><strong>CUI DLP violations</strong> — Forward DLP incident reports to Sentinel</li>
+            <li><strong>Failed CUI access</strong> — Alert on repeated access denied to CUI sites</li>
+            <li><strong>Guest CUI access</strong> — Alert on any guest accessing CUI-labeled content</li>
+          </ul>
+        </li>
+        <li>Set up <strong>Automated Response Playbooks</strong> for critical CUI alerts (disable account, notify security team)</li>
+        <li>Configure <strong>Workbook</strong>: "CUI Activity Dashboard" showing label usage, DLP triggers, access patterns</li>
+      </ol>
+    </div>
+  </details>
+</section>
+
+<!-- ═══════════════════ 11. CUI ENCLAVE MODEL ═══════════════════ -->
+<section id="enclave">
+  <div class="section-header">
+    <div class="section-num" style="background:#0d9488;">11</div>
+    <h2>CUI Enclave Model — Logical Segmentation</h2>
+  </div>
+  <p class="section-desc">Although the entire tenant is GCC, MVL logically segments CUI from non-CUI content to provide auditor clarity and minimize the CMMC assessment scope.</p>
+
+  <div class="flow-container">
+    <svg viewBox="0 0 900 420" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:900px;">
+      <!-- Tenant -->
+      <rect x="20" y="20" width="860" height="380" rx="16" fill="none" stroke="#3b82f6" stroke-width="2"/>
+      <text x="450" y="50" text-anchor="middle" fill="#93c5fd" font-size="14" font-weight="700">MVL GROUP — MICROSOFT 365 GCC G5 TENANT</text>
+      <text x="450" y="70" text-anchor="middle" fill="#64748b" font-size="11">~300 Total Users &bull; FedRAMP Moderate</text>
+
+      <!-- Non-CUI Zone -->
+      <rect x="40" y="90" width="340" height="290" rx="12" fill="#1e293b" stroke="#475569" stroke-width="1.5"/>
+      <text x="210" y="118" text-anchor="middle" fill="#94a3b8" font-size="13" font-weight="700">NON-CUI ZONE</text>
+      <text x="210" y="138" text-anchor="middle" fill="#64748b" font-size="10">~265 Users &bull; Standard Business Operations</text>
+
+      <rect x="60" y="155" width="140" height="45" rx="6" fill="#334155" stroke="#475569" stroke-width="1"/>
+      <text x="130" y="175" text-anchor="middle" fill="#94a3b8" font-size="11">General SharePoint</text>
+      <text x="130" y="190" text-anchor="middle" fill="#64748b" font-size="9">Internal sites</text>
+
+      <rect x="220" y="155" width="140" height="45" rx="6" fill="#334155" stroke="#475569" stroke-width="1"/>
+      <text x="290" y="175" text-anchor="middle" fill="#94a3b8" font-size="11">Standard Teams</text>
+      <text x="290" y="190" text-anchor="middle" fill="#64748b" font-size="9">Business channels</text>
+
+      <rect x="60" y="215" width="140" height="45" rx="6" fill="#334155" stroke="#475569" stroke-width="1"/>
+      <text x="130" y="235" text-anchor="middle" fill="#94a3b8" font-size="11">HR / Marketing</text>
+      <text x="130" y="250" text-anchor="middle" fill="#64748b" font-size="9">Non-CUI data</text>
+
+      <rect x="220" y="215" width="140" height="45" rx="6" fill="#334155" stroke="#475569" stroke-width="1"/>
+      <text x="290" y="235" text-anchor="middle" fill="#94a3b8" font-size="11">General OneDrive</text>
+      <text x="290" y="250" text-anchor="middle" fill="#64748b" font-size="9">Non-CUI files</text>
+
+      <!-- CUI Zone -->
+      <rect x="420" y="90" width="440" height="290" rx="12" fill="#0f2540" stroke="#06b6d4" stroke-width="2"/>
+      <text x="640" y="118" text-anchor="middle" fill="#22d3ee" font-size="13" font-weight="700">&#x1F6E1; CUI ENCLAVE</text>
+      <text x="640" y="138" text-anchor="middle" fill="#67e8f9" font-size="10">~35 Users &bull; CMMC L2 Assessment Scope</text>
+
+      <rect x="440" y="155" width="195" height="50" rx="6" fill="#064e3b" stroke="#34d399" stroke-width="1"/>
+      <text x="538" y="175" text-anchor="middle" fill="#fff" font-size="11" font-weight="600">Pre-Award Library</text>
+      <text x="538" y="193" text-anchor="middle" fill="#6ee7b7" font-size="9">CUI-Proposal Group</text>
+
+      <rect x="650" y="155" width="195" height="50" rx="6" fill="#064e3b" stroke="#34d399" stroke-width="1"/>
+      <text x="748" y="175" text-anchor="middle" fill="#fff" font-size="11" font-weight="600">Post-Award Library</text>
+      <text x="748" y="193" text-anchor="middle" fill="#6ee7b7" font-size="9">CUI-Exec + CUI-Projects</text>
+
+      <rect x="440" y="220" width="195" height="50" rx="6" fill="#1e1b3a" stroke="#818cf8" stroke-width="1"/>
+      <text x="538" y="240" text-anchor="middle" fill="#fff" font-size="11" font-weight="600">Redacted Library</text>
+      <text x="538" y="258" text-anchor="middle" fill="#a5b4fc" font-size="9">CUI-Projects + CUI-Accounts</text>
+
+      <rect x="650" y="220" width="195" height="50" rx="6" fill="#78350f" stroke="#fbbf24" stroke-width="1"/>
+      <text x="748" y="240" text-anchor="middle" fill="#fff" font-size="11" font-weight="600">Finance Restricted</text>
+      <text x="748" y="258" text-anchor="middle" fill="#fde68a" font-size="9">CUI-Accounts Group</text>
+
+      <rect x="440" y="285" width="405" height="50" rx="6" fill="#312e81" stroke="#a78bfa" stroke-width="1"/>
+      <text x="643" y="305" text-anchor="middle" fill="#fff" font-size="11" font-weight="600">Private CUI Teams Channels</text>
+      <text x="643" y="323" text-anchor="middle" fill="#c4b5fd" font-size="9">SharePoint-backed &bull; DLP enforced &bull; Guest access controlled</text>
+
+      <!-- Barrier -->
+      <line x1="400" y1="100" x2="400" y2="370" stroke="#ef4444" stroke-width="2.5" stroke-dasharray="6,4"/>
+      <text x="400" y="390" text-anchor="middle" fill="#f87171" font-size="10" font-weight="600">LOGICAL BOUNDARY</text>
+    </svg>
+  </div>
+
+  <div class="alert alert-success">
+    <span class="alert-icon">&#x2705;</span>
+    <div><strong>Auditor-Ready Statement:</strong> "MVL Group processes CUI exclusively within Microsoft 365 GCC G5 (FedRAMP Moderate). All CUI data is received, stored, processed, and transmitted within the GCC tenant. Access is restricted to defined Entra security groups. Microsoft Purview DLP, sensitivity labeling, endpoint compliance enforcement, and Conditional Access are enabled to prevent unauthorized access or exfiltration. Only ~35 of ~300 users are within the CUI boundary."</div>
+  </div>
+</section>
+
+<!-- ═══════════════════ 12. INCIDENT RESPONSE ═══════════════════ -->
+<section id="incident">
+  <div class="section-header">
+    <div class="section-num" style="background:var(--red);">12</div>
+    <h2>CUI Incident Response Procedures</h2>
+  </div>
+
+  <div class="card">
+    <h3>&#x1F6A8; CUI Spillage / Unauthorized Disclosure Response</h3>
+    <div class="step">
+      <div class="step-num" style="background:var(--red);">1</div>
+      <div class="step-content">
+        <h4>Immediate Containment (Within 1 Hour)</h4>
+        <p>Isolate affected accounts/devices. Revoke sharing links. Quarantine affected files using Purview eDiscovery hold. Disable compromised guest accounts.</p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num" style="background:var(--red);">2</div>
+      <div class="step-content">
+        <h4>Assessment (Within 4 Hours)</h4>
+        <p>Determine scope of spillage using Unified Audit Log and Sentinel. Identify which CUI was exposed, to whom, and through what channel. Classify severity: Minor (internal mislabel), Major (external exposure), Critical (adversary access).</p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num" style="background:var(--red);">3</div>
+      <div class="step-content">
+        <h4>Notification (Within 72 Hours for DFARS)</h4>
+        <p>Notify Contracting Officer per DFARS 252.204-7012. Report to DC3 (DoD Cyber Crime Center) if cyber incident. Notify affected personnel and CUI Program Manager. Document incident in incident tracking system.</p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num" style="background:var(--red);">4</div>
+      <div class="step-content">
+        <h4>Remediation &amp; Lessons Learned</h4>
+        <p>Remove CUI from unauthorized locations. Update DLP rules / Conditional Access to prevent recurrence. Conduct user retraining if human error. Update SSP and POA&amp;M as needed. Close incident with full documentation.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════ 13. CMMC MAPPING ═══════════════════ -->
+<section id="cmmc-map">
+  <div class="section-header">
+    <div class="section-num" style="background:#7c3aed;">13</div>
+    <h2>CMMC v2 Level 2 Control Mapping</h2>
+  </div>
+  <p class="section-desc">How MVL Group's CUI architecture maps to key CMMC v2 / NIST SP 800-171 Rev 3 control families.</p>
+
+  <table class="styled-table">
+    <thead>
+      <tr>
+        <th>CMMC Domain</th>
+        <th>NIST Family</th>
+        <th>Key Controls Addressed</th>
+        <th>MVL Implementation</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>AC</strong> — Access Control</td>
+        <td>3.1.x</td>
+        <td>Account management, least privilege, remote access, CUI flow</td>
+        <td>Entra security groups, Conditional Access, PIM, Zscaler ZPA</td>
+      </tr>
+      <tr>
+        <td><strong>AU</strong> — Audit &amp; Accountability</td>
+        <td>3.3.x</td>
+        <td>Audit logging, review, protection, correlation</td>
+        <td>Unified Audit Log, Microsoft Sentinel, Purview audit</td>
+      </tr>
+      <tr>
+        <td><strong>IA</strong> — Identification &amp; Auth</td>
+        <td>3.5.x</td>
+        <td>MFA, identifier management, authenticator management</td>
+        <td>Entra ID MFA, Windows Hello, hardware tokens for admins</td>
+      </tr>
+      <tr>
+        <td><strong>MP</strong> — Media Protection</td>
+        <td>3.8.x</td>
+        <td>Media marking, storage, transport, sanitization</td>
+        <td>Sensitivity labels, BitLocker, USB block, NIST 800-88 disposal</td>
+      </tr>
+      <tr>
+        <td><strong>SC</strong> — System &amp; Comms Protection</td>
+        <td>3.13.x</td>
+        <td>Boundary protection, encryption, CUI segregation</td>
+        <td>GCC G5 boundary, TLS 1.2+, AES-256, DLP, Zscaler</td>
+      </tr>
+      <tr>
+        <td><strong>SI</strong> — System &amp; Info Integrity</td>
+        <td>3.14.x</td>
+        <td>Flaw remediation, malware protection, monitoring</td>
+        <td>Defender XDR, Intune patching, Sentinel monitoring</td>
+      </tr>
+      <tr>
+        <td><strong>AT</strong> — Awareness &amp; Training</td>
+        <td>3.2.x</td>
+        <td>Security awareness, CUI handling training</td>
+        <td>Annual CUI training, label policy tips, onboarding program</td>
+      </tr>
+      <tr>
+        <td><strong>IR</strong> — Incident Response</td>
+        <td>3.6.x</td>
+        <td>Incident handling, reporting, testing</td>
+        <td>DFARS 72-hr reporting, Sentinel playbooks, spillage procedures</td>
+      </tr>
+    </tbody>
+  </table>
+</section>
+
+<!-- ═══════════════════ 14. AUDIT READINESS ═══════════════════ -->
+<section id="audit">
+  <div class="section-header">
+    <div class="section-num" style="background:var(--shield-gold);">14</div>
+    <h2>Audit Readiness Checklist</h2>
+  </div>
+  <p class="section-desc">Essential evidence artifacts and configurations that must be ready for a CMMC Level 2 assessment. This checklist helps verify that all CUI protections are properly documented and demonstrable.</p>
+
+  <div class="grid-2">
+    <div class="card">
+      <h3>&#x1F4C4; Documentation Artifacts</h3>
+      <ul>
+        <li>&#x2610; System Security Plan (SSP) with CUI boundary defined</li>
+        <li>&#x2610; Network diagram showing CUI data flow</li>
+        <li>&#x2610; CUI inventory and data flow mapping</li>
+        <li>&#x2610; Sensitivity label taxonomy documentation</li>
+        <li>&#x2610; DLP policy configurations (exported)</li>
+        <li>&#x2610; Conditional Access policy screenshots</li>
+        <li>&#x2610; Security group membership lists</li>
+        <li>&#x2610; Incident response plan (CUI-specific)</li>
+        <li>&#x2610; POA&amp;M (Plan of Action &amp; Milestones)</li>
+        <li>&#x2610; Training completion records</li>
+        <li>&#x2610; Access review completion evidence</li>
+        <li>&#x2610; Vendor/subcontractor sharing agreements</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3>&#x2699; Technical Verification</h3>
+      <ul>
+        <li>&#x2610; Sensitivity labels active and publishing confirmed</li>
+        <li>&#x2610; DLP policies in enforcement mode (not simulation)</li>
+        <li>&#x2610; Conditional Access policies enforcing on CUI groups</li>
+        <li>&#x2610; MFA enabled for 100% of CUI users</li>
+        <li>&#x2610; Intune compliance reports showing all CUI devices compliant</li>
+        <li>&#x2610; BitLocker encryption verified on all endpoints</li>
+        <li>&#x2610; USB write block policy active</li>
+        <li>&#x2610; Unified Audit Log enabled and retaining ≥1 year</li>
+        <li>&#x2610; Sentinel analytics rules active for CUI monitoring</li>
+        <li>&#x2610; SharePoint CUI site external sharing disabled</li>
+        <li>&#x2610; Guest access policies configured for B2B</li>
+        <li>&#x2610; Legacy authentication blocked</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════ PHYSICAL & MEDIA ═══════════════════ -->
+<section>
+  <div class="section-header">
+    <div class="section-num" style="background:#475569;">15</div>
+    <h2>Physical &amp; Media Control Assumptions</h2>
+  </div>
+
+  <div class="grid-3">
+    <div class="card">
+      <h3>&#x1F6AB; Prohibited</h3>
+      <ul>
+        <li>No CUI stored locally outside encrypted endpoints</li>
+        <li>No Dropbox, Google Drive, or commercial cloud</li>
+        <li>No commercial M365 for CUI</li>
+        <li>No personal devices accessing CUI</li>
+        <li>No anonymous sharing links</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3>&#x1F512; Controlled</h3>
+      <ul>
+        <li>USB write restricted via Intune policy</li>
+        <li>Printing of CUI logged (if enabled)</li>
+        <li>BitLocker encryption on all devices</li>
+        <li>Screen capture blocked for CUI apps</li>
+        <li>Clipboard restricted for CUI content</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3>&#x2705; Required</h3>
+      <ul>
+        <li>All CUI in M365 GCC G5 only</li>
+        <li>Intune-managed devices exclusively</li>
+        <li>MFA for every CUI access</li>
+        <li>Sensitivity labels on all CUI content</li>
+        <li>Clean desk policy in CUI areas</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════ REFERENCES ═══════════════════ -->
+<section>
+  <div class="section-header">
+    <div class="section-num" style="background:#334155;">&#x1F4DA;</div>
+    <h2>References &amp; Resources</h2>
+  </div>
+  <div class="grid-2">
+    <div class="card">
+      <h3>Regulatory &amp; Standards</h3>
+      <ul>
+        <li><strong>NIST SP 800-171 Rev 3</strong> — Protecting CUI in Nonfederal Systems</li>
+        <li><strong>32 CFR Part 2002</strong> — CUI Program</li>
+        <li><strong>DFARS 252.204-7012</strong> — Safeguarding CUI &amp; Cyber Incident Reporting</li>
+        <li><strong>CMMC v2 Level 2</strong> — Assessment Guide</li>
+        <li><strong>Executive Order 13556</strong> — Controlled Unclassified Information</li>
+        <li><strong>NIST SP 800-88</strong> — Media Sanitization Guidelines</li>
+        <li><strong>CUI Registry</strong> — archives.gov/cui</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3>Microsoft &amp; Technical</h3>
+      <ul>
+        <li><strong>Microsoft Purview</strong> — Sensitivity Labels Documentation</li>
+        <li><strong>Microsoft Purview</strong> — DLP Policy Configuration</li>
+        <li><strong>Microsoft Entra ID</strong> — Conditional Access Policies</li>
+        <li><strong>Microsoft Intune</strong> — Device Compliance Policies</li>
+        <li><strong>Microsoft Sentinel</strong> — Analytics Rules &amp; Playbooks</li>
+        <li><strong>Microsoft Technical Reference Guide</strong> — CMMC 2.0</li>
+        <li><strong>MVL Group Policies</strong> — CUI Protection, Data Classification, Access Management, Identity Management, Email Management, Endpoint Security, Cloud Security</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+</div><!-- /container -->
+
+<!-- ═══════════════════ FOOTER ═══════════════════ -->
+<footer>
+  <strong>MVL Group</strong> — CUI Processing &amp; Protection Reference Guide<br>
+  Microsoft 365 GCC G5 &bull; CMMC v2 Level 2 &bull; NIST SP 800-171 Rev 3<br>
+  <span style="opacity:.5;font-size:12px;">Document Classification: Internal Use Only &bull; February 2026 &bull; v1.0</span>
+</footer>
+
+</body>
+</html>
